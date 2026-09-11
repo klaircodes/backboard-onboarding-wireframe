@@ -1,7 +1,7 @@
 import { PATHS } from '../data/paths.js'
 import { Thumb, Check } from './Wire.jsx'
 
-// Sign-up row (kept for the app flow).
+// App sign-up row (kept).
 export function PathRow({ path, selected, onSelect }) {
   const p = PATHS[path]
   return (
@@ -16,12 +16,12 @@ export function PathRow({ path, selected, onSelect }) {
   )
 }
 
-// Hackathon tile: thumbnail, title, one line, Choose / Selected. A check pops in when selected.
-export function PathTile({ path, selected, onSelect, delay = '' }) {
+// Hackathon card. Decision-first: what it is, best if, what you get, setup time. Dims when another is chosen.
+export function PathTile({ path, selected, anySelected, onSelect, delay = '' }) {
   const p = PATHS[path]
   return (
     <div
-      className={`tile enter ${delay} ${selected ? 'selected' : ''}`}
+      className={`tile enter ${delay} ${selected ? 'selected' : ''} ${anySelected && !selected ? 'dim' : ''}`}
       onClick={() => onSelect(path)}
       role="button"
       tabIndex={0}
@@ -31,11 +31,17 @@ export function PathTile({ path, selected, onSelect, delay = '' }) {
       {selected ? <Check /> : null}
       <Thumb />
       <div>
-        <h3>{p.title}</h3>
-        <p className="line">{p.line}</p>
+        <div className="meta">
+          <h3>{p.title}</h3>
+          <span className="setup">{p.setup} setup</span>
+        </div>
+        <p className="best">{p.bestIf}</p>
       </div>
+      <ul>
+        {p.youGet.map((g) => <li key={g}>{g}</li>)}
+      </ul>
       <button type="button" className={`btn choose ${selected ? 'primary' : ''}`} tabIndex={-1}>
-        {selected ? 'Selected' : 'Choose'}
+        {selected ? 'Selected' : `Choose ${p.short}`}
       </button>
     </div>
   )

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
-// Site shell: sticky nav, page content, footer. Every screen renders inside it.
+// Site shell: sticky nav, page content, footer.
 export function Page({ children, narrow = false }) {
   return (
     <div className="page">
@@ -12,6 +12,8 @@ export function Page({ children, narrow = false }) {
 }
 
 export function Nav() {
+  const { pathname } = useLocation()
+  const onLanding = pathname === '/hackathon'
   return (
     <header className="nav">
       <Logo />
@@ -19,7 +21,7 @@ export function Nav() {
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Pricing</a>
         <Link to="/signin">Sign in</Link>
-        <span className="tag">Hackathon access</span>
+        {onLanding ? <a href="#pick" className="btn small primary" style={{ textDecoration: 'none' }}>Get free credits</a> : <span className="tag">Hackathon access</span>}
       </nav>
     </header>
   )
@@ -34,7 +36,7 @@ export function Footer() {
           <span className="copy">Memory, 17,000+ models, RAG and threads behind one key.</span>
         </div>
         <div className="links">
-          <a href="#" onClick={(e) => e.preventDefault()}>Looking to submit?</a>
+          <a href="#" onClick={(e) => e.preventDefault()}>Submit a project</a>
           <a href="#" onClick={(e) => e.preventDefault()}>Judging criteria</a>
           <a href="#" onClick={(e) => e.preventDefault()}>Mentor channel</a>
           <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
@@ -55,7 +57,6 @@ export function Logo() {
   )
 }
 
-// Hackathon progress: 1 Pick · 2 Sign up · 3 Start.
 export function StepBar({ current }) {
   const steps = ['Pick a path', 'Sign up', 'Start building']
   return (
@@ -79,10 +80,12 @@ export function Btn({ primary, full, small, chip, className = '', ...rest }) {
   return <button type="button" className={cls} {...rest} />
 }
 
-export function Field({ className = '', ...rest }) {
+export function Field({ className = '', label, hint, ...rest }) {
   return (
     <div className="field">
+      {label ? <label>{label}</label> : null}
       <input className={className} {...rest} />
+      {hint ? <p className="hint">{hint}</p> : null}
     </div>
   )
 }

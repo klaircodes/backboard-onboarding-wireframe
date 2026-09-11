@@ -1,40 +1,72 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import { Page, Btn } from '../components/Wire.jsx'
 import { HackathonChooser } from '../components/PathChooser.jsx'
+import ClaimForm from '../components/ClaimForm.jsx'
 import VideoEmbed from '../components/VideoEmbed.jsx'
-import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
+import { FAQ, HACKATHON_VIDEO } from '../data/paths.js'
+import { usePathParam } from '../lib/usePath.js'
 import { track } from '../lib/track.js'
 
-// Step 1. Hero with the walkthrough, pick a path, how it works, what each path gives you.
+// One page: hero → pick a path → the sign-up opens right there → how it works → FAQ.
 export default function HackathonLanding() {
-  const navigate = useNavigate()
-  const [path, setPath] = useState(null)
+  const [path, setPath] = usePathParam()
+  const claimRef = useRef(null)
+
   const select = (next) => {
     setPath(next)
     track('path_selected', { path: next, source: 'click', hackathon: true })
   }
+
+  // When a path is chosen, bring the form into view.
+  useEffect(() => {
+    if (path && claimRef.current) {
+      const t = setTimeout(() => claimRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80)
+      return () => clearTimeout(t)
+    }
+  }, [path])
+
   return (
     <Page>
-      <section className="hero">
+      <section className="hero2">
         <div className="container">
-          <h1 className="enter">Build with Backboard this weekend.</h1>
-          <p className="lede enter d1">Memory, 17,000+ models, RAG and threads for your hackathon team. Free credits, no credit card.</p>
-          <VideoEmbed id={HACKATHON_VIDEO} label="Hackathon walkthrough, 90 sec" className="enter d2" />
+          <div>
+            <h1 className="enter">Ship something real this weekend.</h1>
+            <p className="lede enter d1">
+              Free Backboard credits for hackathon teams. Persistent memory, 17,000+ models, RAG and threads,
+              through the desktop app, the terminal, or a single API key. Pick one, get credits, start in minutes.
+            </p>
+            <div className="cta-row enter d2">
+              <a href="#pick" className="btn primary" style={{ textDecoration: 'none' }}>Get free credits</a>
+              <a href="#video" className="btn" style={{ textDecoration: 'none' }}>Watch the 90-sec walkthrough</a>
+            </div>
+            <div className="proof enter d3">
+              <div><div className="n">#1</div><div className="l">on LoCoMo and LongMemEval, the two memory benchmarks</div></div>
+              <div><div className="n">84.3%</div><div className="l">on Terminal Bench 2.1 with R-CLI</div></div>
+              <div><div className="n">17,000+</div><div className="l">models behind one key</div></div>
+            </div>
+          </div>
+          <div id="video">
+            <VideoEmbed id={HACKATHON_VIDEO} label="Hackathon walkthrough, 90 sec" className="enter d2" />
+          </div>
         </div>
       </section>
 
       <section className="section" id="pick">
         <div className="container">
-          <div className="section-head enter">
-            <h2>Pick how you want to build.</h2>
-            <p>One choice. Credits are issued on the next step, and you land on a page built for the tool you picked.</p>
+          <div className="pick-head enter">
+            <div>
+              <h2>How do you want to build?</h2>
+              <p>Pick the one that matches how you already work. You can switch later.</p>
+            </div>
+            {!path ? (
+              <Btn onClick={() => select('api')}>Not sure? Take the API</Btn>
+            ) : (
+              <button className="link small" onClick={() => setPath(null)}>Clear choice</button>
+            )}
           </div>
           <HackathonChooser selected={path} onSelect={select} />
-          <div className="continue enter d5">
-            <Btn primary disabled={!path} onClick={() => navigate(`/hackathon/signup?path=${path}`)}>
-              {path ? `Continue with ${PATHS[path].title} →` : 'Pick a path to continue'}
-            </Btn>
+          <div ref={claimRef} style={{ scrollMarginTop: 90 }}>
+            {path ? <ClaimForm key={path} path={path} /> : null}
           </div>
         </div>
       </section>
@@ -42,29 +74,27 @@ export default function HackathonLanding() {
       <section className="section">
         <div className="container">
           <div className="section-head enter">
-            <h2>How it works.</h2>
+            <h2>Three steps, no waiting.</h2>
           </div>
           <div className="how">
-            <div className="enter d1"><p className="n">01</p><h3>Pick a path</h3><p>Studio, R-CLI or the Unified API. You can change it later in Settings.</p></div>
-            <div className="enter d2"><p className="n">02</p><h3>Sign up with your promo code</h3><p>Name, email, school or company, teammates. The promo code from your organizer issues the credits instantly.</p></div>
-            <div className="enter d3"><p className="n">03</p><h3>Start building</h3><p>Download Studio, install R-CLI, or connect Claude Code, Cursor or VS Code. Then submit your project from the same page.</p></div>
+            <div className="enter d1"><p className="n">01</p><h3>Pick a path</h3><p>Studio for an app, R-CLI for the terminal, the API for the editor you already use.</p></div>
+            <div className="enter d2"><p className="n">02</p><h3>Enter your promo code</h3><p>Name, email, school and teammates. The code from your organizer issues the credits instantly, for everyone you add.</p></div>
+            <div className="enter d3"><p className="n">03</p><h3>Start building</h3><p>You land on a page built for your path, with a checklist that gets you to a first result. Submit from the same page.</p></div>
           </div>
         </div>
       </section>
 
       <section className="section">
-        <div className="container">
-          <div className="section-head enter">
-            <h2>What you get with each path.</h2>
-          </div>
-          <div className="columns-3">
-            {PATH_ORDER.map((k, i) => (
-              <div key={k} className={`enter d${i + 1}`}>
-                <h3>{PATHS[k].title}</h3>
-                <p>{PATHS[k].column}</p>
-                <a href="#" className="more" onClick={(e) => e.preventDefault()}>Watch the {PATHS[k].title} walkthrough →</a>
-              </div>
+        <div className="container"><div style={{ maxWidth: 760 }}>
+          <div className="section-head enter"><h2>Questions teams ask.</h2></div>
+          <div className="faq enter d1">
+            {FAQ.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p className="a">{f.a}</p>
+              </details>
             ))}
+          </div>
           </div>
         </div>
       </section>

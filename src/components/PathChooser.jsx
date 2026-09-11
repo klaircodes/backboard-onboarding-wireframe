@@ -12,11 +12,11 @@ export function SignupChooser({ selected, onSelect }) {
 }
 
 export function HackathonChooser({ selected, onSelect }) {
-  const delays = ['d2', 'd3', 'd4']
+  const delays = ['d1', 'd2', 'd3']
   return (
     <div className="cards-3">
       {PATH_ORDER.map((k, i) => (
-        <PathTile key={k} path={k} selected={selected === k} onSelect={onSelect} delay={delays[i]} />
+        <PathTile key={k} path={k} selected={selected === k} anySelected={!!selected} onSelect={onSelect} delay={delays[i]} />
       ))}
     </div>
   )
