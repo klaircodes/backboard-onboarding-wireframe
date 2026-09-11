@@ -1,4 +1,5 @@
 // Product mock-ups used as placeholder imagery, drawn in the app's own dark palette. Pure SVG, scale to their container.
+// The card shots fill their frame edge to edge, so the tile needs no background of its own.
 const UI = '"Manrope", -apple-system, Helvetica, Arial, sans-serif'
 const MONO = '"Geist Mono", ui-monospace, Menlo, monospace'
 const G = {
@@ -20,7 +21,7 @@ function Frame({ vb, children, className = '' }) {
 function Chrome({ x, y, w, h, title, dark = false, r = 12 }) {
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx={r} fill={dark ? G.base : G.s1} stroke={G.line2} strokeWidth="1.5" />
+      <rect x={x} y={y} width={w} height={h} rx={r} fill={dark ? G.base : G.s2} stroke={G.line2} strokeWidth="1.5" />
       <line x1={x} y1={y + 36} x2={x + w} y2={y + 36} stroke={G.line} strokeWidth="1.5" />
       {[0, 1, 2].map((i) => <circle key={i} cx={x + 18 + i * 14} cy={y + 18} r="4" fill={G.bar2} />)}
       {title ? <text x={x + w / 2} y={y + 22} textAnchor="middle" fontFamily={UI} fontSize="12" fill={G.mid}>{title}</text> : null}
@@ -34,9 +35,9 @@ export function StudioShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={20} y={20} w={600} h={380} title="Backboard Studio" />
+      <Chrome x={1} y={1} w={638} h={398} r={8} title="Backboard Studio" />
       {/* sidebar */}
-      <line x1="170" y1="56" x2="170" y2="400" stroke={G.line} strokeWidth="1.5" />
+      <line x1="170" y1="37" x2="170" y2="400" stroke={G.line} strokeWidth="1.5" />
       <rect x="34" y="70" width="122" height="26" rx="6" fill={G.s3} />
       <Bar x={46} y={79} w={70} fill={G.ink} />
       {[110, 136, 162, 188].map((y, i) => <Bar key={y} x={46} y={y} w={[84, 64, 96, 56][i]} fill={G.bar2} />)}
@@ -74,7 +75,7 @@ export function TerminalShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={20} y={20} w={600} h={380} title="terminal" dark />
+      <Chrome x={1} y={1} w={638} h={398} r={8} title="terminal" dark />
       {lines.map(([t, c], i) => <text key={i} x="44" y={82 + i * 30} fontFamily={MONO} fontSize="13" fill={c}>{t}</text>)}
       <rect x="44" y="294" width="9" height="16" fill={G.ink} className="blink" />
     </Frame>
@@ -85,13 +86,13 @@ export function EditorShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={20} y={20} w={600} h={380} />
+      <Chrome x={1} y={1} w={638} h={398} r={8} />
       {/* tabs */}
-      <rect x="20" y="56" width="600" height="28" fill={G.base} />
-      <rect x="20" y="56" width="110" height="28" fill={G.s1} />
-      <text x="36" y="74" fontFamily={MONO} fontSize="11" fill={G.ink}>agent.py</text>
-      <text x="150" y="74" fontFamily={MONO} fontSize="11" fill={G.mid}>.env</text>
-      <text x="196" y="74" fontFamily={MONO} fontSize="11" fill={G.mid}>README.md</text>
+      <rect x="1" y="37" width="638" height="30" fill={G.base} />
+      <rect x="20" y="37" width="110" height="30" fill={G.s2} />
+      <text x="36" y="56" fontFamily={MONO} fontSize="11" fill={G.ink}>agent.py</text>
+      <text x="150" y="56" fontFamily={MONO} fontSize="11" fill={G.mid}>.env</text>
+      <text x="196" y="56" fontFamily={MONO} fontSize="11" fill={G.mid}>README.md</text>
       {/* gutter + code */}
       {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <text key={i} x="40" y={110 + i * 24} fontFamily={MONO} fontSize="11" fill={G.bar2}>{i + 1}</text>)}
       {[[70, 150], [70, 220], [86, 90], [0, 0], [70, 260], [86, 170], [86, 120], [70, 40]].map(([x, w], i) =>
@@ -100,7 +101,7 @@ export function EditorShot() {
       <rect x="62" y="170" width="2" height="20" fill={G.cyan} />
       <text x="72" y="184" fontFamily={MONO} fontSize="11.5" fill={G.ink}>BACKBOARD_API_KEY = "bb_live_••••••••••••"</text>
       {/* connected editors */}
-      <line x1="20" y1="316" x2="620" y2="316" stroke={G.line} strokeWidth="1.5" />
+      <line x1="1" y1="316" x2="639" y2="316" stroke={G.line} strokeWidth="1.5" />
       {[['Claude Code', true], ['Cursor', false], ['VS Code', false]].map(([n, on], i) => (
         <g key={n}>
           <rect x={40 + i * 190} y="334" width="170" height="40" rx="6" fill={on ? G.teal : G.s1} stroke={on ? G.teal : G.line2} strokeWidth="1.5" />
