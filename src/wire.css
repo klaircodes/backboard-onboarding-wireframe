@@ -110,7 +110,7 @@ p { margin: 0; }
 .pcard { border: 0; border-radius: 12px; padding: 10px; background: var(--s1); cursor: pointer; display: flex; flex-direction: column; transition: background 220ms var(--ease), transform 320ms var(--ease); animation: reveal 520ms var(--ease) backwards; }
 .pcard:nth-child(1) { animation-delay: 220ms; } .pcard:nth-child(2) { animation-delay: 290ms; } .pcard:nth-child(3) { animation-delay: 360ms; }
 .pcard:hover, .pcard:focus-visible { outline: none; background: var(--s2); transform: scale(1.02); }
-.pcard.selected, .pcard.selected:hover { background: linear-gradient(135deg, rgba(11, 85, 107, 0.55), var(--s1) 72%); transform: none; }
+.pcard.selected, .pcard.selected:hover { background: #0f2733; transform: none; }
 .pcard-shot { aspect-ratio: 16 / 10; border-radius: 8px; background: var(--s2); overflow: hidden; }
 .pcard-body { padding: 16px 8px 8px; display: flex; flex-direction: column; gap: 6px; }
 .pcard-body p { color: var(--text-3); font-size: 13.5px; min-height: 38px; margin-bottom: 10px; }
