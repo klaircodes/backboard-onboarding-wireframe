@@ -1,5 +1,7 @@
 # Backboard onboarding wireframe
 
+Live: https://klaircodes.github.io/backboard-onboarding-wireframe/ (deploys from `main` via GitHub Actions)
+
 Black-and-white interactive wireframe of the hackathon sign-up flow from
 `Backboard_Onboarding_Flow_v2_Sept2026`, following the deck's page structure (slides 13–17). Two domains,
 one handoff:
