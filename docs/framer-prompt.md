@@ -4,7 +4,10 @@ Paste everything below the line into the Framer agent in the Backboard site proj
 
 ---
 
-Build one new page at `/hackathon` in this project. It is step 1 of the hackathon onboarding flow. Steps 2 and 3 (sign-up and start) live on app.backboard.io, so this page ends with links out. Do not build anything past this page.
+Build one new page at `/hackathon` in this project, as native layers on the page canvas. It is step 1 of the hackathon onboarding flow. Steps 2 and 3 (sign-up and start) live on app.backboard.io, so this page ends with links out. Do not build anything past this page.
+
+**Native layers only.** Do not write a code component or any .tsx/.jsx file for this page. Create the page, then build every section directly on the Desktop breakpoint as Frames, Stacks and Text layers, with the project's text styles applied to each Text layer, colour styles applied to fills and strokes, the existing Button component inserted as instances, and images as image fills. Nothing on this page should be a code component except, optionally, the video (see section 4). If you find yourself writing React, stop and build it as layers instead. When you finish, I should be able to click into any heading on the canvas and edit its text.
+
 
 Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon — match its structure, order and copy exactly. Ignore the pages it links to.
 
@@ -22,7 +25,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 3. **LogoStrip**, 30px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 16px tall (adjust each so they read at one weight), 28px gap, 55% opacity (80% on hover), left-aligned, wrapping to a second line on phone. No caption under it.
 
-4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, 16:9 at every breakpoint (so the video fills the frame with no letterboxing), radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, in full colour, with YouTube's own control bar hidden (`controls=0`). Two small pill buttons, "Unmute" and "Fullscreen" (text-body-sm, Surface/Primary at 88%, 1px Border/Strong), sit bottom-right and fade in only while the video is hovered; they drive the player through the YouTube iframe API (`enablejsapi=1`, postMessage `unMute` / `mute`; fullscreen via `requestFullscreen` on the wrapper). This needs a small code component wrapping the embed; the wireframe's `src/components/Hack.jsx` has the working version to copy. No poster, play button, caption or filter.
+4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, 16:9 at every breakpoint (so the video fills the frame with no letterboxing), radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, in full colour, with YouTube's own control bar hidden (`controls=0`). Two small pill buttons, "Unmute" and "Fullscreen" (text-body-sm, Surface/Primary at 88%, 1px Border/Strong), sit bottom-right and fade in only while the video is hovered; they drive the player through the YouTube iframe API (`enablejsapi=1`, postMessage `unMute` / `mute`; fullscreen via `requestFullscreen` on the wrapper). This is the one place a small code component is allowed (a wrapper around the embed; the wireframe's `src/components/Hack.jsx` has the working version to copy). If you cannot make it, use the built-in YouTube component with autoplay on, muted, loop on, controls off, and leave it at that. No poster, play button, caption or filter.
 
 5. **PickSection**, 64px top padding.
    h2: "Pick how you want to build."
@@ -42,4 +45,4 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 7. The site's global Footer.
 
-Copy is final; do not rewrite it. No eyebrow labels, no numbered markers, no icons, no arrows on links or buttons. Motion: only the card hover above and a single fade-up of the hero on load.
+Copy is final; do not rewrite it. No eyebrow labels, no numbered markers, no icons, no arrows on links or buttons. Motion: only the card hover above and a single fade-up of the hero on load. Set up the Tablet and Phone breakpoints after Desktop is done, using the stacking rules above.
