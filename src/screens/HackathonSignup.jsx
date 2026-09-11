@@ -41,10 +41,6 @@ export default function HackathonSignup() {
       <main className="wrap narrow">
         <form className="signup" onSubmit={submit}>
           <header className="signup-head">
-            <div className="stepline" aria-label="Step 2 of 3">
-              <span className="on" /><span className="on" /><span />
-              <em>Step 2 of 3</em>
-            </div>
             <h1>Create your team's account</h1>
             <p className="sub">One promo code covers everyone. Each teammate you add gets their own login.</p>
           </header>

@@ -29,20 +29,16 @@ export default function HackathonStart() {
   const first = account?.first?.trim()
   const mark = (i) => setDone((d) => ({ ...d, [i]: true }))
   const cta = (detail, i) => { track('start_cta_clicked', { path, hackathon: true, detail }); if (i !== undefined) mark(i) }
-  const doneCount = Object.keys(done).length
+  const doneCount = Object.values(done).filter(Boolean).length
 
   const heading = { studio: 'Get Backboard Studio', rcli: 'Install Backboard R-CLI', api: 'Connect your coding harness' }[path]
 
   return (
     <div className="page">
-      <AppBar />
+      <AppBar step={3} />
       <main className="wrap narrow">
         <div className="start2">
           <header className="done">
-            <div className="stepline" aria-label="Step 3 of 3">
-              <span className="on" /><span className="on" /><span className="on" />
-              <em>Step 3 of 3</em>
-            </div>
             <h1>{first ? `You're in, ${first}.` : "You're in."}</h1>
             <p className="sub">Hackathon credits are on your account{team === 1 ? '.' : `, and on your ${team - 1} teammate${team > 2 ? "s'" : "'s"} too.`}</p>
             <dl className="stats">
@@ -57,12 +53,11 @@ export default function HackathonStart() {
             <ol className="steps">
               {p.steps.map((s, i) => (
                 <li key={s.title} className={done[i] ? 'is-done' : ''}>
-                  <span className="num" onClick={() => setDone((d) => ({ ...d, [i]: !d[i] }))} role="checkbox" aria-checked={!!done[i]} tabIndex={0}
-                    onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setDone((d) => ({ ...d, [i]: !d[i] }))}>
-                    {done[i] ? <Check /> : i + 1}
-                  </span>
+                  <button type="button" className="chk" onClick={() => setDone((d) => ({ ...d, [i]: !d[i] }))} role="checkbox" aria-checked={!!done[i]} aria-label={`Mark "${s.title}" done`}>
+                    <Check />
+                  </button>
                   <div className="step-body">
-                    <div className="step-title">{s.title}</div>
+                    <div className="step-title"><span className="step-n">Step {i + 1}</span>{s.title}</div>
                     <p className="step-detail">{s.detail}</p>
                     {path === 'studio' && i === 0 ? (
                       <div className="two">
@@ -86,10 +81,6 @@ export default function HackathonStart() {
                 </li>
               ))}
             </ol>
-            <div className="end-row">
-              <Link to="/dashboard" className="btn">Open the dashboard</Link>
-              <span className="help">You can come back to this page any time from Settings.</span>
-            </div>
           </section>
 
           <section className="group">
@@ -107,6 +98,14 @@ export default function HackathonStart() {
               ))}
             </div>
           </section>
+
+          <div className="end-row">
+            <div>
+              <b>All set?</b>
+              <span className="help">You can come back to this page any time from Settings.</span>
+            </div>
+            <Link to="/dashboard" className="btn primary">Open the dashboard</Link>
+          </div>
         </div>
       </main>
     </div>

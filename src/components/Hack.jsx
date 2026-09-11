@@ -3,6 +3,28 @@ import { Link } from 'react-router-dom'
 import { PATHS } from '../data/paths.js'
 import { SHOTS, HeroStill } from './Illos.jsx'
 
+const STEPS = ['Pick a path', 'Sign up', 'Start building']
+
+// Progress across both domains: done steps get a check, the current one is bold, the rest are grey.
+export function Stepper({ step }) {
+  return (
+    <ol className="stepper" aria-label={`Step ${step} of ${STEPS.length}`}>
+      {STEPS.map((label, i) => {
+        const n = i + 1
+        const state = n < step ? 'done' : n === step ? 'on' : ''
+        return (
+          <li key={label} className={state}>
+            <span className="stepper-dot" aria-hidden="true">
+              {n < step ? <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5 5.5 10.5 11.5 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg> : n}
+            </span>
+            <span className="stepper-label">{label}</span>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
 export function SiteNav() {
   return (
     <header className="bar">
@@ -10,7 +32,7 @@ export function SiteNav() {
         <Link to="/hackathon" className="logo"><Mark />backboard</Link>
         <span className="domain">backboard.io</span>
       </div>
-      <span className="bar-title">Hackathon access</span>
+      <Stepper step={1} />
       <nav className="bar-links">
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Sign in</a>
@@ -19,14 +41,14 @@ export function SiteNav() {
   )
 }
 
-export function AppBar() {
+export function AppBar({ step = 2 }) {
   return (
     <header className="bar">
       <div className="bar-left">
         <Link to="/hackathon" className="logo"><Mark />backboard</Link>
         <span className="domain">app.backboard.io</span>
       </div>
-      <span className="bar-title">Hackathon access</span>
+      <Stepper step={step} />
       <a href="#" className="bar-help" onClick={(e) => e.preventDefault()}>Help</a>
     </header>
   )
