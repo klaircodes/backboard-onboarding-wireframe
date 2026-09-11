@@ -13,8 +13,9 @@ one handoff:
   (download buttons / three commands with copy and a Windows toggle / three editor buttons), the
   walkthrough video, hackathon links.
 
-Each top bar shows its domain. `/` opens on the site page. Grey crossed boxes stand in for the real
-product screenshots and videos. `[bracketed]` text is a value that has to come from docs or the organizer.
+Each top bar shows its domain. `/` opens on the site page. Monochrome product mock-ups
+(`src/components/Illos.jsx`) stand in for the real screenshots and video stills; swap them for real media.
+`[bracketed]` text is a value that has to come from docs or the organizer.
 
 ## Run
 
@@ -27,7 +28,8 @@ npm run dev
 
 - `src/data/paths.js` — per-path copy (verbatim from slide 6 where the deck has it), button labels, video
   IDs, activation events.
-- `src/components/Hack.jsx` — site nav, app bar, path card, placeholder, buttons, fields, copy row.
+- `src/components/Hack.jsx` — site nav, app bar, path card, video still, buttons, fields, copy row.
+- `src/components/Illos.jsx` — SVG mock-ups: Studio, terminal, editor, and the hero composition.
 - `src/screens/HackathonLanding.jsx`, `HackathonSignup.jsx`, `HackathonStart.jsx` — one file per page.
 - `src/lib/track.js` — logs the spec's analytics events to the console and keeps the fake account.
 - `src/wire.css` — tokens, layout, motion.

@@ -1,22 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PATHS } from '../data/paths.js'
+import { SHOTS, HeroStill } from './Illos.jsx'
 
-// App top bar (app.backboard.io): logo, domain, Hackathon access, Help.
-export function AppBar() {
-  return (
-    <header className="bar">
-      <div className="bar-left">
-        <Link to="/hackathon" className="logo"><Mark />backboard</Link>
-        <span className="domain">app.backboard.io</span>
-      </div>
-      <span className="bar-title">Hackathon access</span>
-      <a href="#" className="bar-help" onClick={(e) => e.preventDefault()}>Help</a>
-    </header>
-  )
-}
-
-// Site nav (backboard.io).
 export function SiteNav() {
   return (
     <header className="bar">
@@ -29,6 +15,19 @@ export function SiteNav() {
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Sign in</a>
       </nav>
+    </header>
+  )
+}
+
+export function AppBar() {
+  return (
+    <header className="bar">
+      <div className="bar-left">
+        <Link to="/hackathon" className="logo"><Mark />backboard</Link>
+        <span className="domain">app.backboard.io</span>
+      </div>
+      <span className="bar-title">Hackathon access</span>
+      <a href="#" className="bar-help" onClick={(e) => e.preventDefault()}>Help</a>
     </header>
   )
 }
@@ -46,41 +45,45 @@ export function Btn({ primary, full, small, className = '', ...rest }) {
   return <button type="button" className={cls} {...rest} />
 }
 
-export function Field({ className = '', ...rest }) {
-  return <input className={`input ${className}`} {...rest} />
+export function Field({ label, className = '', ...rest }) {
+  return (
+    <label className="fld">
+      {label ? <span>{label}</span> : null}
+      <input className={`input ${className}`} {...rest} />
+    </label>
+  )
 }
 
-// Crossed placeholder for screenshots and video.
-export function Placeholder({ label, video = false, className = '', style }) {
+// Video still with a play button. `path` picks the product mock-up; no path = the hero composition.
+export function Video({ path, caption, className = '' }) {
+  const Shot = path ? SHOTS[path] : HeroStill
   return (
-    <div className={`ph ${video ? 'ph-video' : ''} ${className}`} style={style}>
-      {video ? <span className="play" aria-hidden="true" /> : null}
-      {label ? <span className="ph-label">{label}</span> : null}
+    <div className={`video ${className}`}>
+      <Shot />
+      <span className="play" role="button" aria-label="Play" />
+      {caption ? <span className="caption">{caption}</span> : null}
     </div>
   )
 }
 
-// Deck slide 13 card: screenshot, title, one line, Choose / Selected.
+// Deck slide 13 card, with a real mock-up instead of a box.
 export function PathCard({ path, selected, onSelect }) {
   const p = PATHS[path]
+  const Shot = SHOTS[path]
   return (
     <div className={`pcard ${selected ? 'selected' : ''}`} role="radio" aria-checked={selected} tabIndex={0}
       onClick={() => onSelect(path)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect(path)}>
-      <Placeholder label={`${p.title} screenshot`} />
-      <div className="pcard-text">
+      <div className="pcard-shot"><Shot /></div>
+      <div className="pcard-body">
         <h3>{p.title}</h3>
-        <p>{p.shortLine}</p>
+        <p>{p.tagline}</p>
+        <span className={`btn full ${selected ? 'primary' : ''}`}>{selected ? 'Selected' : 'Choose'}</span>
       </div>
-      <span className={`btn full ${selected ? 'primary' : ''}`}>{selected ? 'Selected' : 'Choose'}</span>
     </div>
   )
 }
 
 export function Copy({ cmd, onCopy }) {
-  return <CopyRow cmd={cmd} onCopy={onCopy} />
-}
-
-function CopyRow({ cmd, onCopy }) {
   const [done, setDone] = useState(false)
   const copy = () => {
     navigator.clipboard?.writeText(cmd).catch(() => {})
