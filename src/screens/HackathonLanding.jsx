@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SiteNav, Video, PathRow } from '../components/Hack.jsx'
+import { SiteNav, Video, PathCard } from '../components/Hack.jsx'
 import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { track } from '../lib/track.js'
@@ -35,8 +35,8 @@ export default function HackathonLanding() {
             <h2>Pick how you want to build.</h2>
             <p>Credits are issued on the next step. You can switch later.</p>
           </div>
-          <div className="rows" role="radiogroup" aria-label="Path">
-            {PATH_ORDER.map((k) => <PathRow key={k} path={k} selected={path === k} onSelect={select} />)}
+          <div className="cards" role="radiogroup" aria-label="Path">
+            {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
           </div>
           <p className="go hint">Picking one takes you to sign-up on app.backboard.io. Not sure? <button type="button" className="link" onClick={() => select('api')}>Start with the API</button></p>
         </section>
