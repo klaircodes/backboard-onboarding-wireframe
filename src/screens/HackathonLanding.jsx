@@ -72,9 +72,9 @@ export default function HackathonLanding() {
             <div>
               <h2>How it works</h2>
               <ol className="how-list">
-                <li><b>Pick a path here.</b><span>Studio, R-CLI or the API. You can switch later in the app.</span></li>
-                <li><b>Sign up on app.backboard.io.</b><span>Your name, school and teammates, then the hackathon code from your organizer.</span></li>
-                <li><b>Start building.</b><span>A short checklist gets you to a first result. Submit from the same page.</span></li>
+                <li><div><b>Pick a path here.</b><span>Studio, R-CLI or the API. You can switch later in the app.</span></div></li>
+                <li><div><b>Sign up on app.backboard.io.</b><span>Your name, school and teammates, then the hackathon code from your organizer.</span></div></li>
+                <li><div><b>Start building.</b><span>A short checklist gets you to a first result. Submit from the same page.</span></div></li>
               </ol>
             </div>
             <div>
