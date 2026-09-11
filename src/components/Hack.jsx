@@ -98,9 +98,13 @@ export function PathCard({ path, selected, onSelect }) {
       onClick={() => onSelect(path)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect(path)}>
       <div className="pcard-shot"><Shot /></div>
       <div className="pcard-body">
-        <h3>{p.title}</h3>
+        <div className="pcard-title">
+          <h3>{p.title}</h3>
+          <span className="pick" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5 5.5 10.5 11.5 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </span>
+        </div>
         <p>{p.tagline}</p>
-        <span className={`btn full ${selected ? 'primary' : ''}`}>{selected ? 'Selected' : 'Choose'}</span>
       </div>
     </div>
   )
