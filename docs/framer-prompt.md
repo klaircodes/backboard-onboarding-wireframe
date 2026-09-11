@@ -16,7 +16,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 1. **ProgressStrip** under the nav, 56px tall, hairline below. Centred breadcrumb "Pick a path › Sign up › Start building" in text-body-sm: first item Text/Primary, separators and the rest Text/Muted. A 2px cyan line sits on the strip's bottom edge and spans the first third of the width.
 
-2. **HeroSection**, 56px top padding.
+2. **HeroSection**, 64px top padding.
    h1: "Backboard for your hackathon." (max 680px; it may break onto two lines)
    Lede, text-body-lg, Text/Secondary, max 580px: "Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute."
 
