@@ -115,6 +115,25 @@ export function PathCard({ path, selected, onSelect }) {
   )
 }
 
+// Model-provider strip above the hero video. PNGs are the white logos from backboard.io's homepage ticker;
+// ElevenLabs is drawn to match. Heights are tuned per mark so they read at one visual weight.
+const LOGOS = [
+  ['chatgpt', 'ChatGPT', 24], ['claude', 'Claude', 21], ['grok', 'Grok', 24], ['deepseek', 'DeepSeek', 21], ['cohere', 'Cohere', 18], ['openrouter', 'OpenRouter', 18],
+]
+export function Logos() {
+  const base = import.meta.env.BASE_URL
+  return (
+    <div className="logos" role="list" aria-label="Models available on Backboard">
+      {LOGOS.map(([file, name, h]) => <img key={file} role="listitem" src={`${base}logos/${file}.png`} alt={name} style={{ height: h }} />)}
+      <svg role="listitem" viewBox="0 0 156 24" style={{ height: 19 }} aria-label="ElevenLabs">
+        <rect x="0" y="1" width="5.5" height="22" fill="currentColor" />
+        <rect x="9.5" y="1" width="5.5" height="22" fill="currentColor" />
+        <text x="22" y="20.5" fontFamily="Geist, Manrope, sans-serif" fontWeight="600" fontSize="23" letterSpacing="-0.5" fill="currentColor">ElevenLabs</text>
+      </svg>
+    </div>
+  )
+}
+
 export function Copy({ cmd, onCopy }) {
   const [done, setDone] = useState(false)
   const copy = () => {

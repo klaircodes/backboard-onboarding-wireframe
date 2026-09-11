@@ -32,6 +32,8 @@ npm run dev
   IDs, activation events.
 - `src/components/Hack.jsx` — site nav, app bar, path card, video still, buttons, fields, copy row.
 - `src/components/Illos.jsx` — SVG mock-ups: Studio, terminal, editor, and the hero composition.
+- `public/logos/` — the white model-provider logos from backboard.io's homepage ticker (ChatGPT, Claude, Grok,
+  DeepSeek, Cohere, OpenRouter); ElevenLabs is drawn inline in `Hack.jsx`. Shown above the hero video.
 - `src/screens/HackathonLanding.jsx`, `HackathonSignup.jsx`, `HackathonStart.jsx` — one file per page.
 - `src/lib/track.js` — logs the spec's analytics events to the console and keeps the fake account.
 - `src/wire.css` — design tokens (below), layout, motion.
