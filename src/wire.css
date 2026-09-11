@@ -290,3 +290,31 @@ p { margin: 0; }
 .ready-tile b { font-weight: 600; font-size: 15px; }
 .ready-tile span { font-size: 13.5px; color: var(--mid); }
 .wrap.narrow .start-video { aspect-ratio: 16 / 9; }
+
+/* Refinements: step line, group meta, code check, stats, done steps ----- */
+.stepline { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
+.stepline span { width: 34px; height: 3px; border-radius: 2px; background: var(--line); }
+.stepline span.on { background: var(--ink); }
+.stepline em { font-style: normal; font-size: 12.5px; color: var(--mid); margin-left: 8px; }
+.signup-head h1 { font-size: 34px; }
+.path-row { grid-template-columns: 112px minmax(0, 1fr) auto; padding: 12px 12px 12px 12px; cursor: default; }
+.path-row:hover { background: var(--paper); }
+.path-thumb { width: 112px; }
+.path-text b { font-size: 16px; }
+.group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.group-head h2 { margin: 0; }
+.group-head .meta { font-size: 13px; color: var(--mid); }
+.code-wrap { position: relative; }
+.code-wrap .input.code { padding-right: 52px; }
+.code-check { position: absolute; right: 14px; top: 50%; width: 26px; height: 26px; margin-top: -13px; border-radius: 50%; background: var(--ink); color: var(--paper); display: grid; place-items: center; opacity: 0; transform: scale(0.6); transition: opacity 200ms var(--ease), transform 240ms var(--ease); }
+.code-wrap.ok .code-check { opacity: 1; transform: none; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0 0; padding: 0; width: 100%; }
+.stats div { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.stats dt { font-size: 12.5px; color: var(--mid); margin-bottom: 2px; }
+.stats dd { margin: 0; font-size: 15px; font-weight: 600; }
+@media (max-width: 480px) { .stats { grid-template-columns: 1fr; } }
+.num { cursor: pointer; transition: background 160ms var(--ease), color 160ms var(--ease); }
+.steps li.is-done .num { background: var(--ink); color: var(--paper); }
+.steps li.is-done .step-title { color: var(--mid); }
+.end-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 18px; border-top: 1px solid var(--line); }
+.end-row .btn { text-decoration: none; }

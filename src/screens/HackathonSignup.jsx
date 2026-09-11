@@ -6,6 +6,10 @@ import { PATHS } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { saveAccount, track } from '../lib/track.js'
 
+function Check() {
+  return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 7.5 5.5 10.5 11.5 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+}
+
 // app.backboard.io/hackathon/signup — slide 14, grouped: about you, your team, hackathon code.
 export default function HackathonSignup() {
   const navigate = useNavigate()
@@ -21,11 +25,12 @@ export default function HackathonSignup() {
   const Shot = SHOTS[path]
 
   const team = 1 + mates.filter((m) => m.trim()).length
-  const ready = first.trim() && last.trim() && email.trim() && school.trim() && promo.trim()
+  const codeOk = promo.replace(/[^A-Z0-9]/gi, '').length >= 6
+  const ready = first.trim() && last.trim() && email.trim() && school.trim() && codeOk
   const submit = (e) => {
     e.preventDefault()
     if (!ready) return
-    saveAccount({ path, hackathon: true, team, activated: false, email })
+    saveAccount({ path, hackathon: true, team, activated: false, email, first })
     track('signup_completed', { path, hackathon: true, team })
     navigate(`/hackathon/start/${path}`)
   }
@@ -36,21 +41,25 @@ export default function HackathonSignup() {
       <main className="wrap narrow">
         <form className="signup" onSubmit={submit}>
           <header className="signup-head">
-            <h1>Hackathon access</h1>
-            <p className="sub">One promo code covers your whole team. Everyone you add gets their own account.</p>
+            <div className="stepline" aria-label="Step 2 of 3">
+              <span className="on" /><span className="on" /><span />
+              <em>Step 2 of 3</em>
+            </div>
+            <h1>Create your team's account</h1>
+            <p className="sub">One promo code covers everyone. Each teammate you add gets their own login.</p>
           </header>
 
-          <button type="button" className="path-row" onClick={() => navigate(`/hackathon?path=${path}`)}>
+          <div className="path-row">
             <span className="path-thumb"><Shot /></span>
             <span className="path-text">
-              <span className="muted">You're signing up for</span>
               <b>{p.title}</b>
+              <span className="muted">{p.tagline}</span>
             </span>
-            <span className="path-change">Change</span>
-          </button>
+            <Btn small onClick={() => navigate(`/hackathon?path=${path}`)}>Change</Btn>
+          </div>
 
           <section className="group">
-            <h2>About you</h2>
+            <div className="group-head"><h2>About you</h2></div>
             <div className="two">
               <Field label="First name" value={first} onChange={(e) => setFirst(e.target.value)} autoFocus />
               <Field label="Last name" value={last} onChange={(e) => setLast(e.target.value)} />
@@ -62,7 +71,7 @@ export default function HackathonSignup() {
           </section>
 
           <section className="group">
-            <h2>Your team</h2>
+            <div className="group-head"><h2>Your team</h2><span className="meta">{team === 1 ? 'Just you so far' : `${team} people`}</span></div>
             <div className="roster">
               <div className="roster-row you">
                 <span className="avatar">{(first || email || '?').slice(0, 1).toUpperCase()}</span>
@@ -81,9 +90,12 @@ export default function HackathonSignup() {
           </section>
 
           <section className="group">
-            <h2>Hackathon code</h2>
-            <Field className="code" placeholder="XXXX-XXXX" value={promo} onChange={(e) => setPromo(e.target.value.toUpperCase())} />
-            <p className="help">From your organizer. It issues the credits for all {team === 1 ? 'of you' : `${team} of you`}, no card needed.</p>
+            <div className="group-head"><h2>Hackathon code</h2><span className="meta">Required</span></div>
+            <div className={`code-wrap ${codeOk ? 'ok' : ''}`}>
+              <Field className="code" placeholder="XXXX-XXXX" value={promo} onChange={(e) => setPromo(e.target.value.toUpperCase())} />
+              <span className="code-check" aria-hidden="true"><Check /></span>
+            </div>
+            <p className="help">{codeOk ? `Looks good. This issues credits for ${team === 1 ? 'you' : `all ${team} of you`}, no card needed.` : 'From your organizer. It issues the credits for your whole team, no card needed.'}</p>
           </section>
 
           <div className="signup-foot">
