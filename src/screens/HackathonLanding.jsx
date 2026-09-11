@@ -20,8 +20,8 @@ export default function HackathonLanding() {
       <SiteNav />
       <main className="wrap">
         <section className="hero">
-          <h1>Build with Backboard this weekend.</h1>
-          <p className="sub">Persistent memory, 17,000+ models, retrieval and threads for your hackathon team. Watch the walkthrough, pick how you want to build, and you're set up in a minute.</p>
+          <h1>Backboard for your hackathon.</h1>
+          <p className="sub">Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute.</p>
           <Video caption="Hackathon walkthrough, 90 sec" className="hero-video" />
         </section>
 
@@ -52,7 +52,7 @@ export default function HackathonLanding() {
       </main>
       <footer className="foot">
         <div className="wrap foot-in">
-          <span className="logo"><span className="mark" aria-hidden="true"><i style={{ height: 6 }} /><i style={{ height: 14 }} /><i style={{ height: 16 }} /><i style={{ height: 9 }} /></span>backboard</span>
+          <span className="foot-brand">Backboard</span>
           <nav>
             <a href="#" onClick={(e) => e.preventDefault()}>Looking to submit?</a>
             <a href="#" onClick={(e) => e.preventDefault()}>Judging criteria</a>

@@ -365,3 +365,6 @@ p { margin: 0; }
 .pcard-body { padding: 18px 18px 18px; gap: 6px; }
 
 .steps-hint { font-size: 13.5px; color: var(--mid); margin: -4px 0 6px; }
+
+.foot-brand { font-weight: 600; }
+.hero h1 { font-size: 44px; }

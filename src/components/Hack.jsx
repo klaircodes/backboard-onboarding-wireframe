@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { PATHS } from '../data/paths.js'
 import { SHOTS, HeroStill } from './Illos.jsx'
 
@@ -29,10 +28,7 @@ export function Stepper({ step }) {
 export function SiteNav() {
   return (
     <header className="bar">
-      <div className="bar-left">
-        <Link to="/hackathon" className="logo"><Mark />backboard</Link>
-        <span className="domain">backboard.io</span>
-      </div>
+      <div className="bar-left" />
       <Stepper step={1} />
       <nav className="bar-links">
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
@@ -45,10 +41,7 @@ export function SiteNav() {
 export function AppBar({ step = 2 }) {
   return (
     <header className="bar">
-      <div className="bar-left">
-        <Link to="/hackathon" className="logo"><Mark />backboard</Link>
-        <span className="domain">app.backboard.io</span>
-      </div>
+      <div className="bar-left" />
       <Stepper step={step} />
       <a href="#" className="bar-help" onClick={(e) => e.preventDefault()}>Help</a>
     </header>
