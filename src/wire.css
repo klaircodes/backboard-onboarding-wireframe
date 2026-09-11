@@ -103,11 +103,6 @@ p { margin: 0; }
 
 /* Illustrations ------------------------------------------------ */
 .illo-scene { position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; }
-.rings { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
-.rings span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%); border-radius: 50%; border: 1px solid #e4e4e4; }
-.rings span:nth-child(1) { width: 380px; height: 380px; }
-.rings span:nth-child(2) { width: 540px; height: 540px; border-color: #ebebeb; }
-.rings span:nth-child(3) { width: 700px; height: 700px; border-color: #f0f0f0; }
 .illo-stack { position: relative; width: 432px; height: 297px; }
 .illo-cap { position: relative; max-width: 360px; text-align: center; color: var(--mid); font-size: 14px; line-height: 1.5; animation: cap-in 320ms var(--ease) both; }
 @keyframes cap-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }

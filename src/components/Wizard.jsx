@@ -175,7 +175,6 @@ function FloatCard({ children, className = '' }) {
 export function PathIllo({ path }) {
   return (
     <div className="illo-scene">
-      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
       <div className="illo-stack">
         <div className={`illo ${path === 'studio' ? 'show' : ''}`}>
           <StudioIllo />
@@ -212,7 +211,6 @@ export function TeamIllo({ count, names = [] }) {
   const shown = Math.min(count, 5)
   return (
     <div className="illo-scene">
-      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
       <div className="team-illo">
       <div className="avatars">
         {Array.from({ length: shown }).map((_, i) => (
@@ -229,7 +227,6 @@ export function TeamIllo({ count, names = [] }) {
 export function CodeIllo({ valid, code }) {
   return (
     <div className="illo-scene">
-      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
     <div className={`ticket ${valid ? 'valid' : ''}`}>
       <div className="ticket-top">
         <span className="ticket-label">Hackathon code</span>
