@@ -321,7 +321,7 @@ p { margin: 0; }
 
 /* Stepper in the bar, checkbox steps, closing row --------------------------- */
 .stepper { display: flex; align-items: center; gap: 22px; list-style: none; margin: 0; padding: 0; }
-.stepper li { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--light); position: relative; }
+.stepper li { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--light); position: relative; white-space: nowrap; flex-shrink: 0; }
 .stepper li + li::before { content: ""; position: absolute; left: -15px; top: 50%; width: 8px; height: 1px; background: var(--line); }
 .stepper-dot { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--light); display: grid; place-items: center; font-size: 11px; font-weight: 600; color: var(--light); }
 .stepper li.done { color: var(--ink-2); }
