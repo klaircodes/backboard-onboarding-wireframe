@@ -5,9 +5,14 @@ import { isPath, PATHS } from '../data/paths.js'
 import { getAccount, track } from '../lib/track.js'
 
 const HARNESSES = ['Claude Code', 'Cursor', 'VS Code']
-const LINKS = ['Submit your project', 'Judging criteria', 'Mentor channel', 'Docs']
+const READY = [
+  ['Submit your project', 'Through the hackathon portal, any time before the deadline.'],
+  ['Judging criteria', 'What the judges look for, so you can build toward it.'],
+  ['Mentor channel', 'Backboard engineers are in the channel all weekend.'],
+  ['Docs', 'Every command and endpoint, with examples.'],
+]
 
-// app.backboard.io/hackathon/start/{path} — credits banner, the win, the video, hackathon links (slides 15–17).
+// app.backboard.io/hackathon/start/{path} — slides 15–17: you're in, the win as numbered steps, video, links.
 export default function HackathonStart() {
   const { path } = useParams()
   const [windows, setWindows] = useState(false)
@@ -18,61 +23,74 @@ export default function HackathonStart() {
   const team = account?.hackathon ? account.team : 3
   const cta = (detail) => track('start_cta_clicked', { path, hackathon: true, detail })
 
+  const heading = { studio: 'Get Backboard Studio', rcli: 'Install Backboard R-CLI', api: 'Connect your coding harness' }[path]
+
   return (
     <div className="page">
       <AppBar />
-      <main className="wrap mid">
-        <div className="card start">
-          <div className="credits"><b>You are in.</b> Hackathon credits are on your account. Team of {team}.</div>
-
-          {path === 'studio' ? (
-            <>
-              <h1>Get Backboard Studio</h1>
-              <p className="sub">Download, open, sign in. Studio opens already signed in to this account.</p>
-              <div className="two">
-                <Btn primary onClick={() => cta('macos')}>Download for macOS (Apple Silicon)</Btn>
-                <Btn onClick={() => cta('windows')}>Download for Windows</Btn>
-              </div>
-              <p className="note">Also available for macOS Intel and Linux.</p>
-            </>
-          ) : null}
-
-          {path === 'rcli' ? (
-            <>
-              <h1>Install Backboard R-CLI</h1>
-              <p className="sub">Three commands. Copy each one.</p>
-              <Copy cmd={windows ? '[PowerShell one-liner from docs]' : 'curl -fsSL https://app.backboard.io/api/cli | bash'} onCopy={cta} />
-              <div className="two">
-                <Copy cmd="backboard login" onCopy={cta} />
-                <Copy cmd="backboard --version" onCopy={cta} />
-              </div>
-              <p className="note">
-                <button type="button" className="link" onClick={() => setWindows(!windows)}>{windows ? 'Show macOS / Linux' : 'On Windows? Use PowerShell'}</button>
-                {' '}backboard login prints a URL, a short code and a QR code. Approve in the browser and you are in.
-              </p>
-            </>
-          ) : null}
-
-          {path === 'api' ? (
-            <>
-              <h1>Connect your coding harness</h1>
-              <p className="sub">Same key, same memory, same 17,000+ models, inside the tool you open every day.</p>
-              <div className="three">
-                {HARNESSES.map((h) => <Btn key={h} primary={harness === h} onClick={() => { setHarness(h); cta(h) }}>{h}</Btn>)}
-              </div>
-              <p className="note">Your key was created for you and is already in the install link. Also works with Codex, Windsurf and any MCP client.</p>
-              <p className="note">Or call it raw: <span className="mono">pip install backboard-sdk</span> or <span className="mono">npm i backboard-sdk</span></p>
-            </>
-          ) : null}
-
-          <Video path={path} caption={`${p.title} walkthrough, 90 sec`} className="start-video" />
-
-          <div className="hack">
-            <span className="label">Hackathon</span>
-            <div className="hack-links">
-              {LINKS.map((l) => <a key={l} href="#" onClick={(e) => e.preventDefault()}>{l}</a>)}
+      <main className="wrap narrow">
+        <div className="start2">
+          <header className="done">
+            <span className="check-badge" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3.5 9.5 7.5 13.5 14.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </span>
+            <h1>You're in.</h1>
+            <p className="sub">Hackathon credits are on your account. {team === 1 ? 'Just you for now.' : `Team of ${team}, everyone is covered.`}</p>
+            <div className="pills">
+              <span>{p.title}</span>
+              <span>{team === 1 ? '1 account' : `${team} accounts`}</span>
+              <span>About {p.setup} to set up</span>
             </div>
-          </div>
+          </header>
+
+          <section className="group">
+            <h2>{heading}</h2>
+            <ol className="steps">
+              {p.steps.map((s, i) => (
+                <li key={s.title}>
+                  <span className="num">{i + 1}</span>
+                  <div className="step-body">
+                    <div className="step-title">{s.title}</div>
+                    <p className="step-detail">{s.detail}</p>
+                    {path === 'studio' && i === 0 ? (
+                      <div className="two">
+                        <Btn primary onClick={() => cta('macos')}>Download for macOS (Apple Silicon)</Btn>
+                        <Btn onClick={() => cta('windows')}>Download for Windows</Btn>
+                        <p className="help" style={{ gridColumn: '1 / -1' }}>Also available for macOS Intel and Linux.</p>
+                      </div>
+                    ) : null}
+                    {s.harness ? (
+                      <div className="three">
+                        {HARNESSES.map((h) => <Btn key={h} primary={harness === h} onClick={() => { setHarness(h); cta(h) }}>{h}</Btn>)}
+                      </div>
+                    ) : null}
+                    {s.cmd && path === 'rcli' && i === 0 ? (
+                      <>
+                        <Copy cmd={windows ? s.winCmd : s.cmd} onCopy={cta} />
+                        <p className="help"><button type="button" className="link" onClick={() => setWindows(!windows)}>{windows ? 'Show the macOS / Linux command' : 'On Windows? Show the PowerShell command'}</button></p>
+                      </>
+                    ) : s.cmd ? <Copy cmd={s.cmd} onCopy={cta} /> : null}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="group">
+            <h2>Watch the walkthrough</h2>
+            <Video path={path} caption={`${p.title}, 90 sec`} className="start-video" />
+          </section>
+
+          <section className="group">
+            <h2>When you're ready</h2>
+            <div className="ready">
+              {READY.map(([t, d]) => (
+                <a key={t} href="#" className="ready-tile" onClick={(e) => e.preventDefault()}>
+                  <b>{t}</b><span>{d}</span>
+                </a>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
     </div>
