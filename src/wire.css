@@ -436,14 +436,3 @@ h3 { font-size: 16px; }
 .video .play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
 .video .caption { font-size: 12.5px; padding: 5px 11px; }
 .credits { font-size: 14px; }
-
-/* backboard.io header on the website page ----------------------------------- */
-.site-header { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 22px; background: #fff; color: #000; border-bottom: 1px solid var(--line); }
-.site-logo { display: inline-flex; align-items: center; font-family: "Geist Mono", ui-monospace, Menlo, monospace; font-size: 15px; color: #000; text-decoration: none; letter-spacing: -0.01em; }
-.site-right { display: flex; align-items: center; gap: 14px; }
-.site-cta { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 5px; background: #000; color: #fff; font-size: 13px; font-weight: 500; text-decoration: none; }
-.site-cta:hover { background: #262626; }
-.site-menu { width: 30px; height: 30px; background: none; border: 0; padding: 0; cursor: pointer; display: grid; place-items: center; gap: 0; }
-.site-menu span { display: block; width: 18px; height: 2px; background: #000; border-radius: 1px; }
-.site-menu span + span { margin-top: 5px; }
-.crumbbar { position: relative; display: flex; justify-content: center; align-items: center; height: 40px; border-bottom: 1px solid var(--line); background: var(--paper); }
