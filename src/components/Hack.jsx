@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { PATHS } from '../data/paths.js'
 import { SHOTS, HeroStill } from './Illos.jsx'
-import { track } from '../lib/track.js'
 
 const STEPS = ['Pick a path', 'Sign up', 'Start building']
 
@@ -71,28 +70,21 @@ export function Field({ label, className = '', ...rest }) {
   )
 }
 
-// Video slot. `youtube` = a real video: poster + play, the player loads on click. Otherwise a product mock-up still.
-const poster = (id, size) => `https://i.ytimg.com/vi/${id}/${size}.jpg`
+// Video slot. `youtube` = the real video, autoplaying muted and looping in the page. Otherwise a product mock-up still.
 export function Video({ path, youtube, caption, className = '' }) {
-  const [playing, setPlaying] = useState(false)
-  const [img, setImg] = useState(youtube ? poster(youtube, 'maxresdefault') : null)
   const Shot = path ? SHOTS[path] : HeroStill
-  const play = () => {
-    if (!youtube) return
-    track('video_played', { id: youtube })
-    setPlaying(true)
-  }
-  if (youtube && playing) {
+  if (youtube) {
+    const src = `https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1&mute=1&loop=1&playlist=${youtube}&rel=0&playsinline=1&modestbranding=1`
     return (
       <div className={`video ${className}`}>
-        <iframe src={`https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1&rel=0`} title={caption || 'Video'} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+        <iframe src={src} title={caption || 'Video'} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
       </div>
     )
   }
   return (
     <div className={`video ${className}`}>
-      {youtube ? <img src={img} alt="" onError={() => setImg(poster(youtube, 'hqdefault'))} /> : <Shot />}
-      <button type="button" className="play" aria-label="Play" onClick={play} />
+      <Shot />
+      <span className="play" role="button" aria-label="Play" />
       {caption ? <span className="caption">{caption}</span> : null}
     </div>
   )
