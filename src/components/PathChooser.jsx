@@ -1,22 +1,12 @@
 import { PATH_ORDER } from '../data/paths.js'
-import { PathRow, PathTile } from './PathCard.jsx'
+import { PathRow } from './PathCard.jsx'
 
+// Used by the app sign-up screen (/signup) only.
 export function SignupChooser({ selected, onSelect }) {
   return (
     <div className="card-list">
       {PATH_ORDER.map((k) => (
         <PathRow key={k} path={k} selected={selected === k} onSelect={onSelect} />
-      ))}
-    </div>
-  )
-}
-
-export function HackathonChooser({ selected, onSelect }) {
-  const delays = ['d1', 'd2', 'd3']
-  return (
-    <div className="cards-3">
-      {PATH_ORDER.map((k, i) => (
-        <PathTile key={k} path={k} selected={selected === k} anySelected={!!selected} onSelect={onSelect} delay={delays[i]} />
       ))}
     </div>
   )

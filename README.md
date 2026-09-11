@@ -1,13 +1,12 @@
 # Backboard onboarding wireframe
 
 Black-and-white interactive wireframe of the hackathon sign-up flow from
-`Backboard_Onboarding_Flow_v2_Sept2026` (slides 12–17), laid out as a real site: nav, hero with the
-walkthrough video, pick-a-path cards, how it works, footer. `/` opens on the hackathon page. Picking a card
-changes the button, completing a step lands where the real one will. The app sign-up screens (slides 5,
-8–10) are still reachable by URL.
+`Backboard_Onboarding_Flow_v2_Sept2026`, built as an onboarding wizard: one question per screen, a step
+breadcrumb with a progress line, and a panel on the right that previews whatever you pick.
 
-Dashed boxes stand in for real product screenshots and the embedded walkthrough videos. `[bracketed]` text
-is a value that has to come from docs or the organizer.
+`/` opens on step 1. Picking an option updates the preview; Continue moves to the next step; Back is in the
+top bar. Grey boxes stand in for the real product screenshots and videos. `[bracketed]` text is a value
+that has to come from docs or the organizer.
 
 ## Run
 
@@ -16,46 +15,30 @@ npm install
 npm run dev
 ```
 
-`/` is the hackathon page. The logo always goes back to it.
+## Steps
 
-## Screens
+| Route | Screen |
+|---|---|
+| `/hackathon` (also `?path=studio\|rcli\|api`) | 1 · Path: How do you want to build? Three option rows; the preview switches between Studio, terminal and editor illustrations. "Not sure? Start with the API." |
+| `/hackathon/team` | 2 · Team: name, email, school, teammates as chips; the preview shows the team growing. |
+| `/hackathon/code` | 3 · Code: the hackathon code on its own screen; the ticket on the right confirms when it's entered. Create account. |
+| `/hackathon/start/studio\|rcli\|api` | 4 · Start: "You're in", a checklist to the first result (download / commands with copy / connect editor), video and submit links. |
 
-| Route | Screen | Slide |
-|---|---|---|
-| `/hackathon` | Step 1: hero video, three cards (no default), Continue, three columns | 13 |
-| `/hackathon/signup?path=…` | Step 2: the existing form + path chip; promo code required | 14 |
-| `/hackathon/start/studio` · `rcli` · `api` | Step 3: credits banner, the win, video, hackathon links | 15–17 |
-| `/signup?path=studio` · `rcli` · `api` | Sign-up with the path pre-selected; button label follows | 5 |
-| `/signup` | Sign-up with no path: nothing selected, button disabled | 5 |
-| `/signin` | Returning user, no cards | — |
-| `/start/studio` · `rcli` · `api` | Start page after auth | 8–10 |
-| `/dashboard` | After the win: path section open, one banner if not activated | — |
-
-## Behaviour that's wired
-
-- `?path=` pre-selects a card; without it the sign-up button reads "Sign up" and is disabled. "Not sure?"
-  picks Unified API.
-- Account creation stores `path_selected` (here `localStorage`) and redirects to `/start/{path}`.
-- Hackathon: pick → form (promo code required, team members add/remove) → `/hackathon/start/{path}` with
-  the team size in the credits banner.
-- Copy buttons copy. Windows PowerShell swaps the install line. Download button follows the OS.
-- Spec events (`path_selected`, `signup_completed`, `start_cta_clicked`) log to the console.
+The app sign-up screens from the deck (`/signup`, `/signin`, `/start/{path}`, `/dashboard`) are still in
+the repo and reachable by URL but are not part of the wizard.
 
 ## Where things live
 
-- `src/data/paths.js` — card copy, button labels, video IDs, activation events (verbatim from slide 6).
-- `src/components/` — `PathCard` (sign-up row + hackathon tile), `AuthBlock`, `DownloadButtons`,
-  `CommandBlock`, `HarnessButtons`, `VideoEmbed`, `CreditsBanner`, `PathChip`, `HackathonLinks`,
-  `StartBody` (shared by both start pages), `Wire` (page shell, logo, button, field).
-- `src/screens/` — one file per route. `src/wire.css` — theme tokens and layout.
+- `src/data/paths.js` — per-path copy, setup time, checklist steps, video IDs, activation events.
+- `src/components/Wizard.jsx` — top bar with breadcrumb and progress, split layout, option row, buttons,
+  fields, and the monochrome illustrations (Studio window, terminal, editor, team avatars, code ticket).
+- `src/screens/Hackathon*.jsx` — one file per step. `src/lib/draft.js` keeps what's been entered between
+  steps; `src/lib/track.js` logs the spec's analytics events to the console.
+- `src/wire.css` — tokens, layout and motion.
 
 ## Making it real
 
-`AuthBlock` → real auth, write `path_selected` at account creation · `VideoEmbed` →
-`youtube-nocookie.com/embed/{id}` (autoplay muted, captions on) · `DownloadButtons` → per-platform Studio
-URLs + auth handoff · `CommandBlock` → PowerShell one-liner and real expected output · `HarnessButtons` →
-the existing one-click MCP installs, key created on page load · form → promo code → credits · `track()` →
-analytics.
-
-Open before build: Studio download URLs, PowerShell one-liner, MCP install links, hackathon submit/mentor
-URLs, real screenshots for the cards, the four videos cut to 60–90 s.
+Step 2/3 → real account creation with `path_selected` stored; the code → promo/credits backend; teammates
+→ invites; step 4 buttons → real Studio download URLs, PowerShell one-liner, the existing one-click MCP
+installs (key created on page load); video boxes → `youtube-nocookie.com/embed/{id}`, autoplay muted,
+captions on; `track()` → analytics.
