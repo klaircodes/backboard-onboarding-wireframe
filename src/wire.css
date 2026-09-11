@@ -368,3 +368,71 @@ p { margin: 0; }
 
 .foot-brand { font-weight: 600; }
 .hero h1 { font-size: 44px; }
+
+/* Scale: everything a notch smaller ------------------------------------------ */
+body { font-size: 14px; }
+h1 { font-size: 36px; }
+.hero h1 { font-size: 40px; max-width: 600px; }
+h2 { font-size: 24px; }
+h3 { font-size: 16px; }
+.sub { font-size: 15.5px; }
+.hero .sub { font-size: 16px; max-width: 580px; margin-bottom: 28px; }
+.bar { height: 56px; }
+.crumb { font-size: 13px; }
+.bar-help, .bar-links a { font-size: 13.5px; }
+.wrap { max-width: 960px; }
+.wrap.narrow { max-width: 600px; padding-top: 36px; }
+.wrap.mid { max-width: 720px; }
+.hero { padding-top: 48px; }
+.pick { padding-top: 60px; }
+.sec-head { margin-bottom: 20px; }
+.sec-head p { font-size: 15px; }
+.cards { gap: 16px; }
+.pcard-body { padding: 16px 16px 16px; }
+.pcard-body p { font-size: 13.5px; min-height: 38px; margin-bottom: 8px; }
+.btn { min-height: 44px; padding: 0 18px; font-size: 14px; }
+.btn.small { min-height: 34px; font-size: 13px; }
+.go { margin-top: 24px; }
+.go .btn { min-width: 320px; min-height: 50px; font-size: 15px; }
+.go .hint { font-size: 13px; }
+.cols { gap: 32px; margin-top: 64px; padding: 40px 0 72px; }
+.col p { font-size: 14px; }
+.col .lead { font-size: 14.5px; }
+.foot { padding: 24px 0; }
+.input { min-height: 46px; font-size: 14px; }
+.input.code { min-height: 54px; font-size: 18px; }
+.fld > span { font-size: 12.5px; }
+.signup { gap: 24px; }
+.signup-head h1 { font-size: 30px; }
+.signup-head .sub { font-size: 15px; }
+.path-row { grid-template-columns: 96px minmax(0, 1fr) auto; }
+.path-thumb { width: 96px; }
+.path-text b { font-size: 15px; }
+.group { padding-top: 18px; gap: 10px; }
+.group h2 { font-size: 14.5px; }
+.roster-row { min-height: 52px; }
+.avatar { width: 36px; height: 36px; font-size: 14px; }
+.roster-text { font-size: 14px; }
+.add-mate { min-height: 44px; font-size: 14px; }
+.help { font-size: 13px; }
+.signup-foot { padding-top: 18px; }
+.signup-foot .btn { min-height: 50px; font-size: 15px; }
+.start2 { gap: 24px; }
+.done h1 { font-size: 32px; }
+.done .sub { font-size: 15px; }
+.stats { margin-top: 14px; gap: 10px; }
+.stats div { padding: 10px 12px; }
+.stats dd { font-size: 14px; }
+.steps li { padding: 16px 0; }
+.step-title { font-size: 15px; }
+.step-detail { font-size: 14px; }
+.cmd { padding: 11px 12px; font-size: 13px; }
+.chk { width: 24px; height: 24px; }
+.chk svg { width: 12px; height: 12px; }
+.steps-hint { font-size: 13px; }
+.ready-tile { padding: 12px 14px; }
+.ready-tile b { font-size: 14.5px; }
+.ready-tile span { font-size: 13px; }
+.video .play { width: 64px; height: 64px; margin: -32px 0 0 -32px; }
+.video .caption { font-size: 12.5px; padding: 5px 11px; }
+.credits { font-size: 14px; }
