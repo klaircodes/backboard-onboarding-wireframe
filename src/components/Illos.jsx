@@ -21,7 +21,7 @@ function Frame({ vb, children, className = '' }) {
 function Chrome({ x, y, w, h, title, dark = false, r = 12 }) {
   return (
     <g>
-      <rect x={x} y={y} width={w} height={h} rx={r} fill={dark ? G.base : G.s2} stroke={G.line2} strokeWidth="1.5" />
+      <rect x={x} y={y} width={w} height={h} rx={r} fill={G.base} stroke={G.line2} strokeWidth="1.5" />
       <line x1={x} y1={y + 36} x2={x + w} y2={y + 36} stroke={G.line} strokeWidth="1.5" />
       {[0, 1, 2].map((i) => <circle key={i} cx={x + 18 + i * 14} cy={y + 18} r="4" fill={G.bar2} />)}
       {title ? <text x={x + w / 2} y={y + 22} textAnchor="middle" fontFamily={UI} fontSize="12" fill={G.mid}>{title}</text> : null}
@@ -48,7 +48,7 @@ export function StudioShot() {
       <rect x="360" y="96" width="240" height="44" rx="10" fill={G.teal} />
       <Bar x={376} y={110} w={180} fill="rgba(255,255,255,0.85)" />
       <Bar x={376} y={124} w={120} fill="rgba(255,255,255,0.45)" />
-      <rect x="192" y="156" width="330" height="88" rx="10" fill={G.s2} stroke={G.line} strokeWidth="1.5" />
+      <rect x="192" y="156" width="330" height="88" rx="10" fill={G.s1} stroke={G.line} strokeWidth="1.5" />
       {[172, 190, 208, 226].map((y, i) => <Bar key={y} x={208} y={y} w={[290, 260, 280, 170][i]} fill={G.bar2} />)}
       <rect x="192" y="256" width="150" height="20" rx="10" fill={G.s3} />
       <circle cx="206" cy="266" r="3.5" fill={G.cyan} />
@@ -88,8 +88,8 @@ export function EditorShot() {
       <rect width="640" height="400" fill={G.s2} />
       <Chrome x={1} y={1} w={638} h={398} r={18} />
       {/* tabs */}
-      <rect x="1" y="37" width="638" height="30" fill={G.base} />
-      <rect x="20" y="37" width="110" height="30" fill={G.s2} />
+      <rect x="1" y="37" width="638" height="30" fill={G.s1} />
+      <rect x="20" y="37" width="110" height="30" fill={G.base} />
       <text x="36" y="56" fontFamily={MONO} fontSize="11" fill={G.ink}>agent.py</text>
       <text x="150" y="56" fontFamily={MONO} fontSize="11" fill={G.mid}>.env</text>
       <text x="196" y="56" fontFamily={MONO} fontSize="11" fill={G.mid}>README.md</text>

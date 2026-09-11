@@ -17,12 +17,12 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 1. **ProgressStrip** under the nav, 56px tall, hairline below. Centred breadcrumb "Pick a path › Sign up › Start building" in text-body-sm: first item Text/Primary, separators and the rest Text/Muted. A 2px cyan line sits on the strip's bottom edge and spans the first third of the width.
 
 2. **HeroSection**, 56px top padding.
-   h1: "Backboard for your hackathon." (max 620px)
+   h1: "Backboard for your hackathon." (max 680px; it may break onto two lines)
    Lede, text-body-lg, Text/Secondary, max 580px: "Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute."
 
-3. **LogoStrip**, 26px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 20px tall (adjust each so they read at one weight), 32px gap, 78% opacity, left-aligned, wrapping to a second line on phone. 14px below it, text-body-sm in Text/Muted: "Every frontier model on one account, and 17,000 more through the Unified API."
+3. **LogoStrip**, 30px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 16px tall (adjust each so they read at one weight), 28px gap, 55% opacity (80% on hover), left-aligned, wrapping to a second line on phone. No caption under it.
 
-4. **HeroVideo**, 28px below. YouTube embed of `8I5QLZTdbXo`, aspect 16:7.5 on desktop and 16:9 on phone, radius 12, 1px /Dark/Border/Strong. Bottom-left caption pill "Hackathon walkthrough" (text-body-sm, Surface/Primary at 88%, 1px Border/Strong, pill radius).
+4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, aspect 16:7.5 on desktop and 16:9 on phone, radius 12, 1px /Dark/Border/Strong. Before play, show a poster in greyscale at about 50% brightness with a white circular play button, so the thumbnail sits in the page's tones instead of shouting. Bottom-left caption pill "Hackathon walkthrough" (text-body-sm, Surface/Primary at 88%, 1px Border/Strong, pill radius).
 
 5. **PickSection**, 64px top padding.
    h2: "Pick how you want to build."

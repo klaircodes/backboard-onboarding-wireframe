@@ -29,7 +29,7 @@ export function Stepper({ step }) {
 export function SiteNav() {
   return (
     <header className="bar">
-      <div className="bar-left" />
+      <div className="bar-left"><a href="#" className="wordmark" onClick={(e) => e.preventDefault()}>Backboard</a></div>
       <Stepper step={1} />
       <nav className="bar-links">
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
@@ -42,7 +42,7 @@ export function SiteNav() {
 export function AppBar({ step = 2 }) {
   return (
     <header className="bar">
-      <div className="bar-left" />
+      <div className="bar-left"><a href="#" className="wordmark" onClick={(e) => e.preventDefault()}>Backboard</a></div>
       <Stepper step={step} />
       <a href="#" className="bar-help" onClick={(e) => e.preventDefault()}>Help</a>
     </header>
@@ -118,14 +118,14 @@ export function PathCard({ path, selected, onSelect }) {
 // Model-provider strip above the hero video. PNGs are the white logos from backboard.io's homepage ticker;
 // ElevenLabs is drawn to match. Heights are tuned per mark so they read at one visual weight.
 const LOGOS = [
-  ['chatgpt', 'ChatGPT', 24], ['claude', 'Claude', 21], ['grok', 'Grok', 24], ['deepseek', 'DeepSeek', 21], ['cohere', 'Cohere', 18], ['openrouter', 'OpenRouter', 18],
+  ['chatgpt', 'ChatGPT', 20], ['claude', 'Claude', 17], ['grok', 'Grok', 20], ['deepseek', 'DeepSeek', 17], ['cohere', 'Cohere', 15], ['openrouter', 'OpenRouter', 15],
 ]
 export function Logos() {
   const base = import.meta.env.BASE_URL
   return (
     <div className="logos" role="list" aria-label="Models available on Backboard">
       {LOGOS.map(([file, name, h]) => <img key={file} role="listitem" src={`${base}logos/${file}.png`} alt={name} style={{ height: h }} />)}
-      <svg role="listitem" viewBox="0 0 156 24" style={{ height: 19 }} aria-label="ElevenLabs">
+      <svg role="listitem" viewBox="0 0 156 24" style={{ height: 16 }} aria-label="ElevenLabs">
         <rect x="0" y="1" width="5.5" height="22" fill="currentColor" />
         <rect x="9.5" y="1" width="5.5" height="22" fill="currentColor" />
         <text x="22" y="20.5" fontFamily="Geist, Manrope, sans-serif" fontWeight="600" fontSize="23" letterSpacing="-0.5" fill="currentColor">ElevenLabs</text>

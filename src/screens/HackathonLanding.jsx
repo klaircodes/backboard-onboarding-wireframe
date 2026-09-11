@@ -27,7 +27,6 @@ export default function HackathonLanding() {
           <h1>Backboard for your hackathon.</h1>
           <p className="sub">Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute.</p>
           <Logos />
-          <p className="logos-note">Every frontier model on one account, and 17,000 more through the Unified API.</p>
           <Video youtube={HACKATHON_VIDEO} caption="Hackathon walkthrough" className="hero-video" />
         </section>
 
