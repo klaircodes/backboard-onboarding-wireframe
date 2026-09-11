@@ -57,7 +57,7 @@ p { margin: 0; }
 .wz-sub { color: var(--ink-2); font-size: 15.5px; margin-bottom: 28px; max-width: 440px; }
 .wz-controls { display: flex; flex-direction: column; gap: 12px; }
 .wz-footer { width: 100%; max-width: 480px; margin: 40px auto 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.wz-aside { background: var(--panel); border-left: 1px solid var(--line); display: grid; place-items: center; padding: 40px; overflow: hidden; }
+.wz-aside { position: relative; background: radial-gradient(ellipse at 50% 42%, #ffffff 0%, var(--panel) 62%); border-left: 1px solid var(--line); display: grid; place-items: center; padding: 40px; overflow: hidden; }
 
 /* Controls ----------------------------------------------------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 8px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); cursor: pointer; font-size: 15px; font-weight: 500; transition: background 180ms var(--ease), color 180ms var(--ease), border-color 180ms var(--ease), transform 120ms var(--ease); }
@@ -102,20 +102,42 @@ p { margin: 0; }
 .add-row .btn { min-height: 48px; }
 
 /* Illustrations ------------------------------------------------ */
-.illo-stack { position: relative; width: 320px; height: 220px; }
+.illo-scene { position: relative; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.rings { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+.rings span { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%); border-radius: 50%; border: 1px solid #e4e4e4; }
+.rings span:nth-child(1) { width: 380px; height: 380px; }
+.rings span:nth-child(2) { width: 540px; height: 540px; border-color: #ebebeb; }
+.rings span:nth-child(3) { width: 700px; height: 700px; border-color: #f0f0f0; }
+.illo-stack { position: relative; width: 432px; height: 297px; }
+.illo-cap { position: relative; max-width: 360px; text-align: center; color: var(--mid); font-size: 14px; line-height: 1.5; animation: cap-in 320ms var(--ease) both; }
+@keyframes cap-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+.float-card { position: absolute; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--paper); border: 1px solid var(--ink); border-radius: 10px; font-size: 13px; box-shadow: 0 10px 24px rgba(0,0,0,0.08); white-space: nowrap; opacity: 0; transform: translateY(10px); transition: opacity 320ms var(--ease) 140ms, transform 360ms var(--ease) 140ms; }
+.illo.show .float-card { opacity: 1; transform: none; }
+.fc-br { right: -28px; bottom: -22px; }
+.float-card b { font-weight: 600; }
+.fc-sub { color: var(--mid); margin-left: 2px; }
+.fc-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+.fc-check { width: 18px; height: 18px; border-radius: 50%; background: var(--ink); color: var(--paper); font-size: 11px; display: grid; place-items: center; }
+.qr { width: 22px; height: 22px; border: 1.5px solid var(--ink); border-radius: 3px; background: repeating-linear-gradient(90deg, var(--ink) 0 3px, transparent 3px 6px), repeating-linear-gradient(0deg, var(--ink) 0 3px, transparent 3px 6px); background-blend-mode: multiply; opacity: 0.85; }
+.illo-fan { position: relative; width: 100%; height: 100%; }
+.fan { position: absolute; left: 50%; top: 50%; transform-origin: center; }
+.fan .illo-svg { filter: drop-shadow(0 10px 20px rgba(0,0,0,0.06)); }
+.fan.a { z-index: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(0.74) translateX(-150px) translateY(-6px); }
+.fan.c { z-index: 1; transform: translate(-50%, -50%) rotate(8deg) scale(0.74) translateX(150px) translateY(-6px); }
+.fan.b { z-index: 2; transform: translate(-50%, -50%) scale(0.86) translateY(18px); }
 .illo { position: absolute; inset: 0; opacity: 0; transform: scale(0.97) translateY(6px); transition: opacity 260ms var(--ease), transform 320ms var(--ease); pointer-events: none; }
 .illo.show { opacity: 1; transform: none; }
-.illo-svg { display: block; filter: drop-shadow(0 12px 24px rgba(0,0,0,0.06)); }
+.illo-svg { display: block; filter: drop-shadow(0 18px 30px rgba(0,0,0,0.08)); }
 .illo-idle { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: var(--mid); font-size: 14px; }
 .illo-idle span { display: block; width: 220px; height: 34px; border: 1px dashed var(--light); border-radius: 8px; }
 .illo-idle p { margin-top: 6px; }
 .cursor { animation: blink 1s steps(1) infinite; }
-.team-illo { display: flex; flex-direction: column; align-items: center; gap: 18px; color: var(--ink-2); }
+.team-illo { position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; color: var(--ink-2); }
 .avatars { display: flex; }
-.avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); display: grid; place-items: center; font-weight: 600; margin-left: -12px; animation: pop 260ms var(--ease) both; }
+.avatar { width: 72px; height: 72px; font-size: 22px; box-shadow: 0 10px 24px rgba(0,0,0,0.08); border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink); display: grid; place-items: center; font-weight: 600; margin-left: -12px; animation: pop 260ms var(--ease) both; }
 .avatar:first-child { margin-left: 0; }
 .avatar.more { background: var(--ink); color: var(--paper); font-size: 13px; }
-.ticket { width: 300px; border: 1.5px solid var(--ink); border-radius: 14px; background: var(--paper); overflow: hidden; transition: transform 300ms var(--ease); }
+.ticket { position: relative; width: 340px; box-shadow: 0 18px 30px rgba(0,0,0,0.08); border: 1.5px solid var(--ink); border-radius: 14px; background: var(--paper); overflow: hidden; transition: transform 300ms var(--ease); }
 .ticket.valid { transform: translateY(-4px); }
 .ticket-top { padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 10px; }
 .ticket-label { font-size: 12.5px; color: var(--mid); }

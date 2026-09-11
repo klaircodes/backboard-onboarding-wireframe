@@ -101,9 +101,10 @@ export const Icons = {
 const line = { stroke: '#000', strokeWidth: 1.25, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' }
 const soft = { stroke: '#C4C4C4', strokeWidth: 1.25, fill: 'none', strokeLinecap: 'round' }
 
+const SCALE = 1.35
 function Window({ children, w = 320, h = 220, title }) {
   return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} className="illo-svg">
+    <svg width={w * SCALE} height={h * SCALE} viewBox={`0 0 ${w} ${h}`} className="illo-svg">
       <rect x="0.5" y="0.5" width={w - 1} height={h - 1} rx="10" fill="#fff" {...line} />
       <path d={`M0.5 30 H${w - 0.5}`} {...line} />
       <circle cx="16" cy="15.5" r="3" fill="#000" /><circle cx="28" cy="15.5" r="3" fill="#000" /><circle cx="40" cy="15.5" r="3" fill="#000" />
@@ -161,18 +162,48 @@ export function ApiIllo() {
   )
 }
 
+const CAPTION = {
+  studio: 'Everything in one window. Sign in once and build.',
+  rcli: 'Install, log in, and the harness is ready in your terminal.',
+  api: 'Your key is created for you and dropped into the editor you use.',
+}
+
+function FloatCard({ children, className = '' }) {
+  return <div className={`float-card ${className}`}>{children}</div>
+}
+
 export function PathIllo({ path }) {
   return (
-    <div className="illo-stack">
-      <div className={`illo ${path === 'studio' ? 'show' : ''}`}><StudioIllo /></div>
-      <div className={`illo ${path === 'rcli' ? 'show' : ''}`}><RcliIllo /></div>
-      <div className={`illo ${path === 'api' ? 'show' : ''}`}><ApiIllo /></div>
-      <div className={`illo idle ${!path ? 'show' : ''}`}>
-        <div className="illo-idle">
-          <span /><span /><span />
-          <p>Pick a path to preview it</p>
+    <div className="illo-scene">
+      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
+      <div className="illo-stack">
+        <div className={`illo ${path === 'studio' ? 'show' : ''}`}>
+          <StudioIllo />
+          <FloatCard className="fc-br">
+            <span className="fc-dot" /> <b>Memory on</b><span className="fc-sub">3 documents indexed</span>
+          </FloatCard>
+        </div>
+        <div className={`illo ${path === 'rcli' ? 'show' : ''}`}>
+          <RcliIllo />
+          <FloatCard className="fc-br">
+            <span className="qr" aria-hidden="true" /><b>Device code</b><span className="fc-sub mono">8F2K-QT</span>
+          </FloatCard>
+        </div>
+        <div className={`illo ${path === 'api' ? 'show' : ''}`}>
+          <ApiIllo />
+          <FloatCard className="fc-br">
+            <span className="fc-check" aria-hidden="true">✓</span><b>Connected</b><span className="fc-sub">first thread created</span>
+          </FloatCard>
+        </div>
+        <div className={`illo idle ${!path ? 'show' : ''}`}>
+          <div className="illo-fan">
+            <div className="fan a"><StudioIllo /></div>
+            <div className="fan b"><RcliIllo /></div>
+            <div className="fan c"><ApiIllo /></div>
+          </div>
         </div>
       </div>
+      <p className="illo-cap" key={path || 'idle'}>{path ? CAPTION[path] : 'Pick a path to see what you get.'}</p>
     </div>
   )
 }
@@ -180,20 +211,25 @@ export function PathIllo({ path }) {
 export function TeamIllo({ count, names = [] }) {
   const shown = Math.min(count, 5)
   return (
-    <div className="team-illo">
+    <div className="illo-scene">
+      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
+      <div className="team-illo">
       <div className="avatars">
         {Array.from({ length: shown }).map((_, i) => (
           <span key={i} className="avatar" style={{ zIndex: 10 - i }}>{(names[i] || '?').slice(0, 1).toUpperCase()}</span>
         ))}
         {count > 5 ? <span className="avatar more">+{count - 5}</span> : null}
       </div>
-      <p>{count === 1 ? 'Just you so far' : `Team of ${count}`}</p>
+      </div>
+      <p className="illo-cap">{count === 1 ? 'Just you so far. Add teammates and they get their own accounts.' : `Team of ${count}. Everyone gets their own account.`}</p>
     </div>
   )
 }
 
 export function CodeIllo({ valid, code }) {
   return (
+    <div className="illo-scene">
+      <div className="rings" aria-hidden="true"><span /><span /><span /></div>
     <div className={`ticket ${valid ? 'valid' : ''}`}>
       <div className="ticket-top">
         <span className="ticket-label">Hackathon code</span>
@@ -206,6 +242,8 @@ export function CodeIllo({ valid, code }) {
         </span>
         <span>{valid ? 'Covers your whole team' : 'Enter the code your organizer gave you'}</span>
       </div>
+    </div>
+      <p className="illo-cap">{valid ? 'Looks good. Create the account and you are in.' : 'One code per team. No card, nothing to cancel.'}</p>
     </div>
   )
 }
