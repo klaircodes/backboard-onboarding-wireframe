@@ -1,5 +1,4 @@
 // Product mock-ups used as placeholder imagery, drawn in the app's own dark palette. Pure SVG, scale to their container.
-// The card shots are windows larger than their frame, so they crop off the right and bottom like a real screenshot.
 const UI = '"Manrope", -apple-system, Helvetica, Arial, sans-serif'
 const MONO = '"Geist Mono", ui-monospace, Menlo, monospace'
 const G = {
@@ -18,13 +17,13 @@ function Frame({ vb, children, className = '' }) {
   )
 }
 
-function Chrome({ x, y, w, h, title, titleX, dark = false, r = 12 }) {
+function Chrome({ x, y, w, h, title, dark = false, r = 12 }) {
   return (
     <g>
       <rect x={x} y={y} width={w} height={h} rx={r} fill={dark ? G.base : G.s1} stroke={G.line2} strokeWidth="1.5" />
       <line x1={x} y1={y + 36} x2={x + w} y2={y + 36} stroke={G.line} strokeWidth="1.5" />
       {[0, 1, 2].map((i) => <circle key={i} cx={x + 18 + i * 14} cy={y + 18} r="4" fill={G.bar2} />)}
-      {title ? <text x={titleX ?? x + w / 2} y={y + 22} textAnchor="middle" fontFamily={UI} fontSize="12" fill={G.mid}>{title}</text> : null}
+      {title ? <text x={x + w / 2} y={y + 22} textAnchor="middle" fontFamily={UI} fontSize="12" fill={G.mid}>{title}</text> : null}
     </g>
   )
 }
@@ -34,8 +33,8 @@ const Bar = ({ x, y, w, h = 8, fill = G.bar }) => <rect x={x} y={y} width={w} he
 export function StudioShot() {
   return (
     <Frame vb="0 0 640 400">
-      <g transform="translate(16 16)">
-      <Chrome x={20} y={20} w={700} h={440} titleX={310} title="Backboard Studio" />
+      <rect width="640" height="400" fill={G.s2} />
+      <Chrome x={20} y={20} w={600} h={380} title="Backboard Studio" />
       {/* sidebar */}
       <line x1="170" y1="56" x2="170" y2="400" stroke={G.line} strokeWidth="1.5" />
       <rect x="34" y="70" width="122" height="26" rx="6" fill={G.s3} />
@@ -58,7 +57,6 @@ export function StudioShot() {
       <Bar x={210} y={351} w={200} fill={G.bar2} />
       <rect x="552" y="339" width="36" height="32" rx="8" fill={G.teal} />
       <path d="M565 355h10M571 350l4 5-4 5" stroke={G.ink} strokeWidth="1.6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    </g>
     </Frame>
   )
 }
@@ -75,11 +73,10 @@ export function TerminalShot() {
   ]
   return (
     <Frame vb="0 0 640 400">
-      <g transform="translate(16 16)">
-      <Chrome x={20} y={20} w={700} h={440} titleX={310} title="terminal" dark />
+      <rect width="640" height="400" fill={G.s2} />
+      <Chrome x={20} y={20} w={600} h={380} title="terminal" dark />
       {lines.map(([t, c], i) => <text key={i} x="44" y={82 + i * 30} fontFamily={MONO} fontSize="13" fill={c}>{t}</text>)}
       <rect x="44" y="294" width="9" height="16" fill={G.ink} className="blink" />
-    </g>
     </Frame>
   )
 }
@@ -87,10 +84,10 @@ export function TerminalShot() {
 export function EditorShot() {
   return (
     <Frame vb="0 0 640 400">
-      <g transform="translate(16 16)">
-      <Chrome x={20} y={20} w={700} h={440} />
+      <rect width="640" height="400" fill={G.s2} />
+      <Chrome x={20} y={20} w={600} h={380} />
       {/* tabs */}
-      <rect x="20" y="56" width="700" height="28" fill={G.base} />
+      <rect x="20" y="56" width="600" height="28" fill={G.base} />
       <rect x="20" y="56" width="110" height="28" fill={G.s1} />
       <text x="36" y="74" fontFamily={MONO} fontSize="11" fill={G.ink}>agent.py</text>
       <text x="150" y="74" fontFamily={MONO} fontSize="11" fill={G.mid}>.env</text>
@@ -103,14 +100,13 @@ export function EditorShot() {
       <rect x="62" y="170" width="2" height="20" fill={G.cyan} />
       <text x="72" y="184" fontFamily={MONO} fontSize="11.5" fill={G.ink}>BACKBOARD_API_KEY = "bb_live_••••••••••••"</text>
       {/* connected editors */}
-      <line x1="20" y1="316" x2="720" y2="316" stroke={G.line} strokeWidth="1.5" />
+      <line x1="20" y1="316" x2="620" y2="316" stroke={G.line} strokeWidth="1.5" />
       {[['Claude Code', true], ['Cursor', false], ['VS Code', false]].map(([n, on], i) => (
         <g key={n}>
           <rect x={40 + i * 190} y="334" width="170" height="40" rx="6" fill={on ? G.teal : G.s1} stroke={on ? G.teal : G.line2} strokeWidth="1.5" />
           <text x={125 + i * 190} y="359" textAnchor="middle" fontFamily={UI} fontSize="12" fill={on ? G.ink : G.ink2}>{on ? `${n}  ·  connected` : n}</text>
         </g>
       ))}
-    </g>
     </Frame>
   )
 }
