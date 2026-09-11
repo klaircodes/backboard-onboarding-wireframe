@@ -25,16 +25,31 @@ export function Stepper({ step }) {
   )
 }
 
+// backboard.io site header (dark, as on the live site) with the step breadcrumb in a strip beneath it.
 export function SiteNav() {
   return (
-    <header className="bar">
-      <div className="bar-left" />
-      <Stepper step={1} />
-      <nav className="bar-links">
-        <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
-        <a href="#" onClick={(e) => e.preventDefault()}>Sign in</a>
-      </nav>
-    </header>
+    <>
+      <header className="site-header">
+        <a href="#" className="site-logo" onClick={(e) => e.preventDefault()}>
+          <svg width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true">
+            <rect x="0" y="5" width="1.6" height="6" rx="0.8" fill="#4FB3E8" />
+            <rect x="3.4" y="2" width="1.6" height="12" rx="0.8" fill="#4FB3E8" />
+            <rect x="6.8" y="0" width="1.6" height="16" rx="0.8" fill="#7CCBF2" />
+            <rect x="10.2" y="4" width="1.6" height="8" rx="0.8" fill="#4FB3E8" />
+          </svg>
+          backboard.io
+        </a>
+        <div className="site-right">
+          <a href="#" className="site-cta" onClick={(e) => e.preventDefault()}>Get Started</a>
+          <button type="button" className="site-menu" aria-label="Menu">
+            <span /><span /><span />
+          </button>
+        </div>
+      </header>
+      <div className="crumbbar">
+        <Stepper step={1} />
+      </div>
+    </>
   )
 }
 
