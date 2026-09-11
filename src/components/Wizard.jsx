@@ -105,7 +105,7 @@ const SCALE = 1.35
 function Window({ children, w = 320, h = 220, title }) {
   return (
     <svg width={w * SCALE} height={h * SCALE} viewBox={`0 0 ${w} ${h}`} className="illo-svg">
-      <rect x="0.5" y="0.5" width={w - 1} height={h - 1} rx="10" fill="#fff" {...line} />
+      <rect x="0.5" y="0.5" width={w - 1} height={h - 1} rx="10" {...line} fill="#fff" />
       <path d={`M0.5 30 H${w - 0.5}`} {...line} />
       <circle cx="16" cy="15.5" r="3" fill="#000" /><circle cx="28" cy="15.5" r="3" fill="#000" /><circle cx="40" cy="15.5" r="3" fill="#000" />
       {title ? <text x={w / 2} y="19" textAnchor="middle" fontSize="11" fontFamily="ui-monospace, Menlo, monospace" fill="#6B6B6B">{title}</text> : null}
@@ -121,7 +121,7 @@ export function StudioIllo() {
       {[52, 70, 88, 106].map((y) => <rect key={y} x="14" y={y} width="50" height="6" rx="3" fill={y === 52 ? '#000' : '#DADADA'} />)}
       <rect x="96" y="50" width="150" height="8" rx="4" fill="#000" />
       {[74, 90, 106].map((y) => <rect key={y} x="96" y={y} width={200 - (y - 74)} height="6" rx="3" fill="#DADADA" />)}
-      <rect x="96" y="150" width="208" height="48" rx="8" fill="#fff" {...line} />
+      <rect x="96" y="150" width="208" height="48" rx="8" {...line} fill="#fff" />
       <rect x="108" y="166" width="120" height="6" rx="3" fill="#DADADA" />
       <rect x="270" y="160" width="24" height="28" rx="6" fill="#000" />
       <path d="M279 174h6M282 171l3 3-3 3" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -153,9 +153,9 @@ export function ApiIllo() {
       <rect x="12" y="108" width="240" height="14" rx="3" fill="#000" />
       <text x="18" y="118.5" fontSize="10.5" fontFamily="ui-monospace, Menlo, monospace" fill="#fff">BACKBOARD_API_KEY = "bb_live_••••••••"</text>
       <g fontSize="10" fontFamily="-apple-system, Helvetica, sans-serif" fill="#000">
-        <rect x="18" y="170" width="86" height="30" rx="6" fill="#fff" {...line} /><text x="61" y="189" textAnchor="middle">Claude Code</text>
-        <rect x="116" y="170" width="86" height="30" rx="6" fill="#fff" {...soft} /><text x="159" y="189" textAnchor="middle" fill="#9A9A9A">Cursor</text>
-        <rect x="214" y="170" width="86" height="30" rx="6" fill="#fff" {...soft} /><text x="257" y="189" textAnchor="middle" fill="#9A9A9A">VS Code</text>
+        <rect x="18" y="170" width="86" height="30" rx="6" {...line} fill="#fff" /><text x="61" y="189" textAnchor="middle">Claude Code</text>
+        <rect x="116" y="170" width="86" height="30" rx="6" {...soft} fill="#fff" /><text x="159" y="189" textAnchor="middle" fill="#9A9A9A">Cursor</text>
+        <rect x="214" y="170" width="86" height="30" rx="6" {...soft} fill="#fff" /><text x="257" y="189" textAnchor="middle" fill="#9A9A9A">VS Code</text>
       </g>
       <path d="M61 122v48M159 122v48M257 122v48" {...soft} strokeDasharray="2 4" />
     </Window>
