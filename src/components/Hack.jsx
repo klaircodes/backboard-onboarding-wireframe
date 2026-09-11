@@ -98,19 +98,19 @@ export function Video({ path, youtube, caption, className = '' }) {
   )
 }
 
-// Deck slide 13 card, with a real mock-up instead of a box. Clicking it is the step: the parent navigates.
-export function PathCard({ path, selected, onSelect }) {
+// Deck slide 13, as a ruled row instead of a card. The whole row is the control; the parent navigates on click.
+export function PathRow({ path, selected, onSelect }) {
   const p = PATHS[path]
   const Shot = SHOTS[path]
   return (
-    <div className={`pcard ${selected ? 'selected' : ''}`} role="radio" aria-checked={selected} tabIndex={0}
+    <div className={`prow ${selected ? 'selected' : ''}`} role="radio" aria-checked={selected} tabIndex={0}
       onClick={() => onSelect(path)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect(path)}>
-      <div className="pcard-shot"><Shot /></div>
-      <div className="pcard-body">
+      <span className="prow-thumb"><Shot /></span>
+      <span className="prow-text">
         <h3>{p.title}</h3>
         <p>{p.tagline}</p>
-        <span className={`btn full ${selected ? 'primary' : ''}`}>{p.button}</span>
-      </div>
+      </span>
+      <span className="btn small">{p.button}</span>
     </div>
   )
 }
