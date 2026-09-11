@@ -22,7 +22,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 3. **LogoStrip**, 30px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 16px tall (adjust each so they read at one weight), 28px gap, 55% opacity (80% on hover), left-aligned, wrapping to a second line on phone. No caption under it.
 
-4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, aspect 16:7.5 on desktop and 16:9 on phone, radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, with YouTube's controls available so people can unmute or go fullscreen. No poster, play button or caption. Render it in greyscale at about 60% brightness, returning to full colour on hover (a CSS filter on the embed), so it sits in the page's tones until someone looks at it.
+4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, 16:9 at every breakpoint (so the video fills the frame with no letterboxing), radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, in full colour, with YouTube's controls available so people can unmute or go fullscreen. No poster, play button, caption or filter.
 
 5. **PickSection**, 64px top padding.
    h2: "Pick how you want to build."
