@@ -41,7 +41,7 @@ export const PATHS = {
     activation: 'rcli_login_completed',
     win: 'R-CLI is installed and logged in.',
     steps: [
-      { title: 'Install', detail: 'One line. Windows users: switch to the PowerShell tab.', cmd: 'curl -fsSL https://app.backboard.io/api/cli | bash', winCmd: '[PowerShell one-liner from docs]' },
+      { title: 'Install', detail: 'One line in your terminal. On Windows, use the PowerShell command instead.', cmd: 'curl -fsSL https://app.backboard.io/api/cli | bash', winCmd: '[PowerShell one-liner from docs]' },
       { title: 'Sign in from the terminal', detail: 'Prints a URL, a short code and a QR code. Approve in the browser and you are in.', cmd: 'backboard login' },
       { title: 'Check the install', detail: 'You should see a version number.', cmd: 'backboard --version' },
     ],
