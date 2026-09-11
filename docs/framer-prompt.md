@@ -22,7 +22,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 3. **LogoStrip**, 30px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 16px tall (adjust each so they read at one weight), 28px gap, 55% opacity (80% on hover), left-aligned, wrapping to a second line on phone. No caption under it.
 
-4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, 16:9 at every breakpoint (so the video fills the frame with no letterboxing), radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, in full colour, with YouTube's controls available so people can unmute or go fullscreen. No poster, play button, caption or filter.
+4. **HeroVideo**, 40px below. YouTube embed of `8I5QLZTdbXo`, 16:9 at every breakpoint (so the video fills the frame with no letterboxing), radius 12, 1px /Dark/Border/Strong. It autoplays muted and loops, in full colour, with YouTube's own control bar hidden (`controls=0`). Two small pill buttons, "Unmute" and "Fullscreen" (text-body-sm, Surface/Primary at 88%, 1px Border/Strong), sit bottom-right and fade in only while the video is hovered; they drive the player through the YouTube iframe API (`enablejsapi=1`, postMessage `unMute` / `mute`; fullscreen via `requestFullscreen` on the wrapper). This needs a small code component wrapping the embed; the wireframe's `src/components/Hack.jsx` has the working version to copy. No poster, play button, caption or filter.
 
 5. **PickSection**, 64px top padding.
    h2: "Pick how you want to build."

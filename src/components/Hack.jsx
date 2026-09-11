@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { PATHS } from '../data/paths.js'
 import { SHOTS, HeroStill } from './Illos.jsx'
 
@@ -70,14 +70,28 @@ export function Field({ label, className = '', ...rest }) {
   )
 }
 
-// Video slot. `youtube` = the real video, autoplaying muted and looping in the page. Otherwise a product mock-up still.
+// Video slot. `youtube` = the real video, autoplaying muted and looping with YouTube's bar hidden; our own
+// Unmute / Fullscreen buttons appear on hover and drive the player through the iframe API. Otherwise a mock-up still.
+const YT_ORIGIN = 'https://www.youtube-nocookie.com'
 export function Video({ path, youtube, caption, className = '' }) {
+  const [muted, setMuted] = useState(true)
+  const box = useRef(null)
+  const frame = useRef(null)
   const Shot = path ? SHOTS[path] : HeroStill
+  const send = (func) => frame.current?.contentWindow?.postMessage(JSON.stringify({ event: 'command', func, args: [] }), YT_ORIGIN)
+  const toggleMute = () => { send(muted ? 'unMute' : 'mute'); setMuted(!muted) }
+  const fullscreen = () => (document.fullscreenElement ? document.exitFullscreen() : box.current?.requestFullscreen?.())
   if (youtube) {
-    const src = `https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1&mute=1&loop=1&playlist=${youtube}&rel=0&playsinline=1&modestbranding=1`
+    const origin = typeof window !== 'undefined' ? `&origin=${encodeURIComponent(window.location.origin)}` : ''
+    const src = `${YT_ORIGIN}/embed/${youtube}?autoplay=1&mute=1&loop=1&playlist=${youtube}&controls=0&rel=0&playsinline=1&modestbranding=1&enablejsapi=1${origin}`
     return (
-      <div className={`video ${className}`}>
-        <iframe src={src} title={caption || 'Video'} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+      <div className={`video ${className}`} ref={box}>
+        <iframe ref={frame} src={src} title={caption || 'Video'} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen
+          onLoad={() => frame.current?.contentWindow?.postMessage(JSON.stringify({ event: 'listening' }), YT_ORIGIN)} />
+        <div className="vctl">
+          <button type="button" onClick={toggleMute}>{muted ? 'Unmute' : 'Mute'}</button>
+          <button type="button" onClick={fullscreen}>Fullscreen</button>
+        </div>
       </div>
     )
   }

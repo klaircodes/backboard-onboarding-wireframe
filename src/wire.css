@@ -96,6 +96,12 @@ p { margin: 0; }
 .video .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--text); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); display: grid; place-items: center; cursor: pointer; transition: transform 200ms var(--ease); }
 .video .play:hover { transform: scale(1.06); }
 .video .play::after { content: ""; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--base); margin-left: 4px; }
+.vctl { position: absolute; right: 14px; bottom: 14px; display: flex; gap: 8px; opacity: 0; transition: opacity 220ms var(--ease); }
+.video:hover .vctl, .video:focus-within .vctl { opacity: 1; }
+.vctl button { min-height: 32px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line-2); background: rgba(16, 17, 22, 0.88); color: var(--text-2); font-size: 12.5px; font-weight: 500; cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: color 160ms var(--ease), border-color 160ms var(--ease); }
+.vctl button:hover { color: var(--text); border-color: rgba(255, 255, 255, 0.3); }
+.video:fullscreen { border-radius: 0; border: 0; background: #000; }
+.video:fullscreen iframe { object-fit: contain; }
 .video .caption { position: absolute; left: 16px; bottom: 16px; background: rgba(16, 17, 22, 0.88); border: 1px solid var(--line-2); border-radius: 999px; padding: 5px 11px; font-size: 12.5px; font-weight: 500; color: var(--text-2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
 /* Landing ------------------------------------------------------ */
