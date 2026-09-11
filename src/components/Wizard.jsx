@@ -5,11 +5,12 @@ export const STEPS = ['Path', 'Team', 'Code', 'Start']
 // Top bar: back, logo, step breadcrumb with a progress line, help.
 export function TopBar({ step }) {
   const navigate = useNavigate()
+  const back = () => (step === 2 ? navigate('/hackathon') : navigate(-1))
   return (
     <header className="wz-top">
       <div className="wz-top-left">
         {step > 1 && step < 4 ? (
-          <button type="button" className="wz-back" onClick={() => navigate(-1)} aria-label="Back">
+          <button type="button" className="wz-back" onClick={back} aria-label="Back">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </button>
         ) : null}
@@ -17,6 +18,7 @@ export function TopBar({ step }) {
           <span className="mark" aria-hidden="true"><i style={{ height: 6 }} /><i style={{ height: 14 }} /><i style={{ height: 16 }} /><i style={{ height: 9 }} /></span>
           backboard
         </Link>
+        <span className="domain">app.backboard.io</span>
       </div>
       <nav className="wz-steps" aria-label="Progress">
         {STEPS.map((s, i) => {
@@ -39,21 +41,27 @@ export function TopBar({ step }) {
 }
 
 // Split layout: content column (question, controls, Continue pinned at the bottom) and a panel for the illustration.
-export function Split({ step, title, sub, children, footer, aside }) {
+export function SplitBody({ title, sub, children, footer, aside, animKey }) {
+  return (
+    <div className="wz-body">
+      <section className="wz-main" key={animKey}>
+        <div className="wz-content">
+          <h1>{title}</h1>
+          {sub ? <p className="wz-sub">{sub}</p> : null}
+          <div className="wz-controls">{children}</div>
+        </div>
+        <div className="wz-footer">{footer}</div>
+      </section>
+      <aside className="wz-aside" aria-hidden="true">{aside}</aside>
+    </div>
+  )
+}
+
+export function Split({ step, ...rest }) {
   return (
     <div className="wz">
       <TopBar step={step} />
-      <div className="wz-body">
-        <section className="wz-main" key={step}>
-          <div className="wz-content">
-            <h1>{title}</h1>
-            {sub ? <p className="wz-sub">{sub}</p> : null}
-            <div className="wz-controls">{children}</div>
-          </div>
-          <div className="wz-footer">{footer}</div>
-        </section>
-        <aside className="wz-aside" aria-hidden="true">{aside}</aside>
-      </div>
+      <SplitBody animKey={step} {...rest} />
     </div>
   )
 }

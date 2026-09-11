@@ -16,12 +16,15 @@ export function Nav() {
   const onLanding = pathname === '/hackathon'
   return (
     <header className="nav">
-      <Logo />
+      <div className="row" style={{ gap: 10 }}>
+        <Logo />
+        <span className="domain">backboard.io</span>
+      </div>
       <nav className="links">
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Pricing</a>
         <Link to="/signin">Sign in</Link>
-        {onLanding ? <a href="#pick" className="btn small" style={{ textDecoration: 'none' }}>Start building</a> : <span className="tag">Hackathon access</span>}
+        {onLanding ? null : <span className="tag">Hackathon access</span>}
       </nav>
     </header>
   )
@@ -52,7 +55,7 @@ export function Logo() {
       <span className="mark" aria-hidden="true">
         <i style={{ height: 6 }} /><i style={{ height: 14 }} /><i style={{ height: 16 }} /><i style={{ height: 9 }} />
       </span>
-      backboard.io
+      backboard
     </Link>
   )
 }
