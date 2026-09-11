@@ -32,11 +32,12 @@ export default function HackathonLanding() {
           <div>
             <h1 className="enter">Ship something real this weekend.</h1>
             <p className="lede enter d1">
-              Free Backboard credits for hackathon teams. Persistent memory, 17,000+ models, RAG and threads,
-              through the desktop app, the terminal, or a single API key. Pick one, get credits, start in minutes.
+              Backboard for hackathon teams: persistent memory, 17,000+ models, RAG and threads, in the desktop app,
+              the terminal, or behind one API key. Your organizer's code covers the cost. Pick a path and you're
+              building in minutes.
             </p>
             <div className="cta-row enter d2">
-              <a href="#pick" className="btn primary" style={{ textDecoration: 'none' }}>Get free credits</a>
+              <a href="#pick" className="btn primary" style={{ textDecoration: 'none' }}>Start building</a>
               <a href="#video" className="btn" style={{ textDecoration: 'none' }}>Watch the 90-sec walkthrough</a>
             </div>
             <div className="proof enter d3">
@@ -78,7 +79,7 @@ export default function HackathonLanding() {
           </div>
           <div className="how">
             <div className="enter d1"><p className="n">01</p><h3>Pick a path</h3><p>Studio for an app, R-CLI for the terminal, the API for the editor you already use.</p></div>
-            <div className="enter d2"><p className="n">02</p><h3>Enter your promo code</h3><p>Name, email, school and teammates. The code from your organizer issues the credits instantly, for everyone you add.</p></div>
+            <div className="enter d2"><p className="n">02</p><h3>Enter your promo code</h3><p>Name, email, school and teammates. The code from your organizer covers everyone you add, instantly.</p></div>
             <div className="enter d3"><p className="n">03</p><h3>Start building</h3><p>You land on a page built for your path, with a checklist that gets you to a first result. Submit from the same page.</p></div>
           </div>
         </div>

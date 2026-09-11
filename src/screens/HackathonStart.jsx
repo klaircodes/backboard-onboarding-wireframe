@@ -45,7 +45,7 @@ export default function HackathonStart() {
               <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M6 13.5 11 18.5 20 8" stroke="#111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </div>
             <h1 className="enter d1">You're in.</h1>
-            <p className="lede enter d1" style={{ marginBottom: 0 }}>Credits are on your account. Here's the fastest way to a first result with {p.title}.</p>
+            <p className="lede enter d1" style={{ marginBottom: 0 }}>Your team is set up. Here's the fastest way to a first result with {p.title}.</p>
             <div className="summary enter d2">
               <div className="item"><div className="k">Team</div><div className="v">{team} {team === 1 ? 'person' : 'people'} · all covered</div></div>
               <div className="item"><div className="k">Path</div><div className="v">{p.title}</div></div>
@@ -109,7 +109,7 @@ export default function HackathonStart() {
             </div>
             <div className="aside-card enter d4">
               <h3>Stuck?</h3>
-              <p>The docs cover every step above, and mentors are in the channel. Your credits don't expire during the event.</p>
+              <p>The docs cover every step above, and mentors are in the channel all weekend.</p>
               <div className="links"><a href="#" onClick={(e) => e.preventDefault()}>Read the docs</a></div>
             </div>
           </div>

@@ -21,7 +21,7 @@ export function Nav() {
         <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
         <a href="#" onClick={(e) => e.preventDefault()}>Pricing</a>
         <Link to="/signin">Sign in</Link>
-        {onLanding ? <a href="#pick" className="btn small primary" style={{ textDecoration: 'none' }}>Get free credits</a> : <span className="tag">Hackathon access</span>}
+        {onLanding ? <a href="#pick" className="btn small" style={{ textDecoration: 'none' }}>Start building</a> : <span className="tag">Hackathon access</span>}
       </nav>
     </header>
   )

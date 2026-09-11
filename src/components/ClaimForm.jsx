@@ -4,7 +4,7 @@ import { PATHS } from '../data/paths.js'
 import { saveAccount, track } from '../lib/track.js'
 import { Btn, Field } from './Wire.jsx'
 
-// Inline sign-up that opens under the cards once a path is chosen. Promo code first: it is what issues credits.
+// Inline sign-up that opens under the cards once a path is chosen. Promo code first: it is what grants access.
 export default function ClaimForm({ path }) {
   const navigate = useNavigate()
   const p = PATHS[path]
@@ -31,10 +31,10 @@ export default function ClaimForm({ path }) {
     <div className="claim" id="claim">
       <form className="stack" style={{ gap: 16 }} onSubmit={submit}>
         <div>
-          <h3>Claim credits for your team</h3>
-          <p className="sub">Takes about a minute. Every teammate you add gets their own account and credits.</p>
+          <h3>Set up your team</h3>
+          <p className="sub">About a minute. Everyone you add gets their own account, covered by the same code.</p>
         </div>
-        <Field className="emph" label="Promo code" placeholder="From your hackathon organizer" value={promo} onChange={(e) => setPromo(e.target.value)} hint="Required. This is what issues the credits." required />
+        <Field className="emph" label="Promo code" placeholder="From your hackathon organizer" value={promo} onChange={(e) => setPromo(e.target.value)} hint="Required. Your organizer's code covers the whole team." required />
         <div className="grid-2">
           <Field label="First name" placeholder="Ada" required />
           <Field label="Last name" placeholder="Lovelace" required />
@@ -57,16 +57,16 @@ export default function ClaimForm({ path }) {
               ))}
             </div>
           ) : null}
-          <p className="team-line" style={{ marginTop: 8 }}>Team of {1 + mates.length}{mates.length ? ' · everyone gets credits' : ' · add teammates so they get credits too'}</p>
+          <p className="team-line" style={{ marginTop: 8 }}>Team of {1 + mates.length}{mates.length ? ' · everyone is covered' : ' · add teammates so they are covered too'}</p>
         </div>
         <Btn primary full type="submit" disabled={!promo.trim()}>{p.hackButton} →</Btn>
-        <p className="muted small" style={{ textAlign: 'center' }}>No credit card. Credits land the moment you submit.</p>
+        <p className="muted small" style={{ textAlign: 'center' }}>No credit card. You're in the moment you submit.</p>
       </form>
 
       <aside className="side">
         <h4>WHAT HAPPENS NEXT</h4>
         <ol className="next">
-          <li><span className="num">01</span><div><b>Your account is created</b><span>Credits are on it instantly.</span></div></li>
+          <li><span className="num">01</span><div><b>Your account is created</b><span>Covered by your hackathon code.</span></div></li>
           <li><span className="num">02</span><div><b>{p.cta}</b><span>{p.steps[0].detail}</span></div></li>
           <li><span className="num">03</span><div><b>Start building</b><span>Submit from the same page when you are done.</span></div></li>
         </ol>

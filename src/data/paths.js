@@ -86,8 +86,8 @@ export function isPath(value) {
 }
 
 export const FAQ = [
-  { q: 'Does every teammate get credits?', a: 'Yes. Add their emails when you sign up and each of them gets their own account and credits under the same promo code.' },
+  { q: 'Does every teammate get access?', a: 'Yes. Add their emails when you sign up and each of them gets their own account under the same promo code.' },
   { q: 'Can I switch paths later?', a: 'Any time. The path just decides which start page you see first. You can install the others from Settings.' },
-  { q: 'I already have a Backboard account.', a: 'Sign in as usual and enter the promo code from Settings → Billing. The credits land on your existing account.' },
+  { q: 'I already have a Backboard account.', a: 'Sign in as usual and enter the promo code under Settings → Billing. It applies to your existing account.' },
   { q: 'Where do I submit my project?', a: 'From your start page once you are in, or the Submit link in the footer. Judging criteria are linked there too.' },
 ]
