@@ -363,3 +363,5 @@ p { margin: 0; }
 .pcard.selected .pick-mark { background: var(--ink); border-color: var(--ink); color: var(--paper); animation: pop-in 260ms var(--ease); }
 .pcard { transition: border-color 160ms var(--ease), opacity 220ms var(--ease); }
 .pcard-body { padding: 18px 18px 18px; gap: 6px; }
+
+.steps-hint { font-size: 13.5px; color: var(--mid); margin: -4px 0 6px; }

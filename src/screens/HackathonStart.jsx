@@ -50,6 +50,7 @@ export default function HackathonStart() {
 
           <section className="group">
             <div className="group-head"><h2>{heading}</h2><span className="meta">{doneCount} of {p.steps.length} done</span></div>
+            <p className="steps-hint">Tick each step as you go, or let it tick itself when you copy a command or click a download.</p>
             <ol className="steps">
               {p.steps.map((s, i) => (
                 <li key={s.title} className={done[i] ? 'is-done' : ''}>
