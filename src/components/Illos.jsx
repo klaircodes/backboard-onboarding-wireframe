@@ -111,16 +111,11 @@ export function EditorShot() {
   )
 }
 
-// Wide still for the hackathon walkthrough video: Studio in front, terminal peeking behind, a soft teal wash.
+// Wide still for the hackathon walkthrough video: Studio in front, terminal peeking behind.
 export function HeroStill() {
   return (
     <Frame vb="0 0 1200 560">
-      <defs>
-        <linearGradient id="wash" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#1a1c23" /><stop offset="1" stopColor="#05070b" /></linearGradient>
-        <radialGradient id="glow" cx="0.18" cy="0.12" r="0.7"><stop offset="0" stopColor="#0b556b" stopOpacity="0.8" /><stop offset="1" stopColor="#0b556b" stopOpacity="0" /></radialGradient>
-      </defs>
-      <rect width="1200" height="560" fill="url(#wash)" />
-      <rect width="1200" height="560" fill="url(#glow)" />
+      <rect width="1200" height="560" fill={G.s2} />
       {/* terminal behind */}
       <g transform="translate(700 150)">
         <Chrome x={0} y={0} w={440} h={300} title="terminal" dark />

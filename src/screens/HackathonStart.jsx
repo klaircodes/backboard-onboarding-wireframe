@@ -85,8 +85,8 @@ export default function HackathonStart() {
           </section>
 
           <section className="group">
-            <div className="group-head"><h2>Watch the walkthrough</h2><span className="meta">90 sec</span></div>
-            <Video path={path} caption={`${p.title} walkthrough`} className="start-video" />
+            <div className="group-head"><h2>Watch the walkthrough</h2></div>
+            <Video youtube={p.video} caption={`${p.title} walkthrough`} className="start-video" />
           </section>
 
           <section className="group">

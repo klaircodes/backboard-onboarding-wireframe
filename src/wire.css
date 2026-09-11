@@ -91,15 +91,14 @@ p { margin: 0; }
 .shot { display: block; width: 100%; height: 100%; }
 .blink { animation: blink 1s steps(1) infinite; }
 .video { position: relative; border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; background: var(--s1); aspect-ratio: 16 / 8; box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9); }
-.video .shot { position: absolute; inset: 0; }
-.video .play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--text); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); display: grid; place-items: center; cursor: pointer; transition: transform 200ms var(--ease); }
+.video .shot, .video img, .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border: 0; object-fit: cover; }
+.video .play { border: 0; padding: 0; position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: var(--text); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); display: grid; place-items: center; cursor: pointer; transition: transform 200ms var(--ease); }
 .video .play:hover { transform: scale(1.06); }
 .video .play::after { content: ""; border-style: solid; border-width: 9px 0 9px 15px; border-color: transparent transparent transparent var(--base); margin-left: 4px; }
 .video .caption { position: absolute; left: 16px; bottom: 16px; background: rgba(16, 17, 22, 0.88); border: 1px solid var(--line-2); border-radius: 999px; padding: 5px 11px; font-size: 12.5px; font-weight: 500; color: var(--text-2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 
 /* Landing ------------------------------------------------------ */
 .hero { position: relative; isolation: isolate; padding: 56px 0 0; animation: reveal 560ms var(--ease) both; }
-.hero::before { content: ""; position: absolute; z-index: -1; left: -260px; top: -260px; width: 860px; height: 640px; background: radial-gradient(closest-side, rgba(11, 85, 107, 0.45), rgba(11, 85, 107, 0)); pointer-events: none; }
 .hero h1 { max-width: 620px; }
 .hero .sub { max-width: 580px; margin-bottom: 28px; }
 .hero-video { aspect-ratio: 16 / 7.5; }
@@ -115,10 +114,8 @@ p { margin: 0; }
 .pcard-shot { aspect-ratio: 16 / 10; border-bottom: 1px solid var(--line); background: var(--s2); overflow: hidden; }
 .pcard-body { padding: 16px; display: flex; flex-direction: column; gap: 6px; }
 .pcard-body p { color: var(--text-3); font-size: 13.5px; min-height: 38px; margin-bottom: 8px; }
-.pcard .btn { pointer-events: none; }
-.go { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 24px 0 0; animation: reveal 520ms var(--ease) 440ms both; }
-.go .btn { min-width: 320px; min-height: 50px; font-size: 15px; }
-.go .hint { font-size: 13px; }
+.pcard .btn { pointer-events: none; font-size: 14px; padding: 0 12px; }
+.go { text-align: center; font-size: 13px; margin: 20px 0 0; animation: reveal 520ms var(--ease) 440ms both; }
 .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 64px; padding: 40px 0 72px; border-top: 1px solid var(--line); animation: reveal 520ms var(--ease) 520ms both; }
 @media (max-width: 760px) { .cols { grid-template-columns: 1fr; gap: 28px; } }
 .col h3 { margin-bottom: 8px; }

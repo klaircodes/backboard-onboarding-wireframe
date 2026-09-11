@@ -1,6 +1,7 @@
+import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SiteNav, Btn, Video, PathCard } from '../components/Hack.jsx'
-import { PATHS, PATH_ORDER } from '../data/paths.js'
+import { SiteNav, Video, PathCard } from '../components/Hack.jsx'
+import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { track } from '../lib/track.js'
 
@@ -8,12 +9,16 @@ import { track } from '../lib/track.js'
 export default function HackathonLanding() {
   const navigate = useNavigate()
   const [path, setPath] = usePathParam()
+  const leaving = useRef(false)
+  // Picking a card is the whole step: it selects, then hands off to sign-up on app.backboard.io.
+  // Real build: window.location = `https://app.backboard.io/hackathon/signup?path=${next}`
   const select = (next) => {
+    if (leaving.current) return
+    leaving.current = true
     setPath(next)
     track('path_selected', { path: next, source: 'click', hackathon: true })
+    setTimeout(() => navigate(`/hackathon/signup?path=${next}`), 360)
   }
-  // Real build: window.location = `https://app.backboard.io/hackathon/signup?path=${path}`
-  const handoff = () => navigate(`/hackathon/signup?path=${path}`)
 
   return (
     <div className="page">
@@ -22,7 +27,7 @@ export default function HackathonLanding() {
         <section className="hero">
           <h1>Backboard for your hackathon.</h1>
           <p className="sub">Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute.</p>
-          <Video caption="Hackathon walkthrough, 90 sec" className="hero-video" />
+          <Video youtube={HACKATHON_VIDEO} caption="Hackathon walkthrough" className="hero-video" />
         </section>
 
         <section className="pick" id="pick">
@@ -33,10 +38,7 @@ export default function HackathonLanding() {
           <div className="cards" role="radiogroup" aria-label="Path">
             {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
           </div>
-          <div className="go">
-            <Btn primary disabled={!path} onClick={handoff}>{path ? `Continue with ${PATHS[path].title}` : 'Choose a path to continue'}</Btn>
-            <span className="hint">Sign-up continues on app.backboard.io. Not sure? <button type="button" className="link" onClick={() => select('api')}>Start with the API</button></span>
-          </div>
+          <p className="go hint">Picking one takes you to sign-up on app.backboard.io. Not sure? <button type="button" className="link" onClick={() => select('api')}>Start with the API</button></p>
         </section>
 
         <section className="cols">
