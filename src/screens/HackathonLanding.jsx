@@ -1,16 +1,15 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SiteNav, Video, PathCard } from '../components/Hack.jsx'
 import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
-import { usePathParam } from '../lib/usePath.js'
 import { track } from '../lib/track.js'
 
 // backboard.io/hackathon. Deck order kept: walkthrough, pick a path, what each one is, footer.
 export default function HackathonLanding() {
   const navigate = useNavigate()
-  const [path, setPath] = usePathParam()
+  const [path, setPath] = useState(null)
   const leaving = useRef(false)
-  // Picking a card is the whole step: it selects, then hands off to sign-up on app.backboard.io.
+  // Nothing is picked until you click. Picking a card is the whole step: it highlights, then hands off to sign-up.
   // Real build: window.location = `https://app.backboard.io/hackathon/signup?path=${next}`
   const select = (next) => {
     if (leaving.current) return

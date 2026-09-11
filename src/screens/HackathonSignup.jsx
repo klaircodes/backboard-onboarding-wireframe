@@ -51,7 +51,7 @@ export default function HackathonSignup() {
               <b>{p.title}</b>
               <span className="muted">{p.tagline}</span>
             </span>
-            <Btn small onClick={() => navigate(`/hackathon?path=${path}`)}>Change</Btn>
+            <Btn small onClick={() => navigate('/hackathon')}>Change</Btn>
           </div>
 
           <section className="group">
