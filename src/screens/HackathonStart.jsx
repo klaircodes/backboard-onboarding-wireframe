@@ -57,7 +57,7 @@ export default function HackathonStart() {
                     <Check />
                   </button>
                   <div className="step-body">
-                    <div className="step-title"><span className="step-n">Step {i + 1}</span>{s.title}</div>
+                    <div className="step-title">{s.title}{done[i] ? <span className="step-done">Done</span> : null}</div>
                     <p className="step-detail">{s.detail}</p>
                     {path === 'studio' && i === 0 ? (
                       <div className="two">
