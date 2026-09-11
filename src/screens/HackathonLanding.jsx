@@ -30,7 +30,7 @@ export default function HackathonLanding() {
             <h2>Pick how you want to build.</h2>
             <p>Credits are issued on the next step. You can switch later.</p>
           </div>
-          <div className={`cards ${path ? 'has-choice' : ''}`} role="radiogroup" aria-label="Path">
+          <div className="cards" role="radiogroup" aria-label="Path">
             {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
           </div>
           <div className="go">

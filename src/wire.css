@@ -90,10 +90,10 @@ p { margin: 0; }
 .pcard { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper); cursor: pointer; display: flex; flex-direction: column; transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease); animation: reveal 520ms var(--ease) both; }
 .pcard:nth-child(1) { animation-delay: 220ms; } .pcard:nth-child(2) { animation-delay: 290ms; } .pcard:nth-child(3) { animation-delay: 360ms; }
 .pcard:hover { border-color: var(--light); }
-.pcard.selected { border-color: var(--ink); }
+.pcard.selected { border-color: var(--ink); box-shadow: 0 0 0 1.5px var(--ink); }
 .pcard-shot { aspect-ratio: 16 / 10; border-bottom: 1px solid var(--line); background: var(--panel); overflow: hidden; }
 .pcard-body { padding: 18px 18px 18px; display: flex; flex-direction: column; gap: 6px; }
-.pcard-body p { color: var(--mid); font-size: 14px; }
+.pcard-body p { color: var(--mid); font-size: 14px; margin-bottom: 10px; min-height: 42px; }
 .pcard .btn { pointer-events: none; }
 .go { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 28px 0 0; animation: reveal 520ms var(--ease) 440ms both; }
 .go .btn { min-width: 360px; min-height: 54px; font-size: 16px; }
@@ -362,6 +362,4 @@ p { margin: 0; }
 .pcard:hover .pick-mark { border-color: var(--ink); }
 .pcard.selected .pick-mark { background: var(--ink); border-color: var(--ink); color: var(--paper); animation: pop-in 260ms var(--ease); }
 .pcard { transition: border-color 160ms var(--ease), opacity 220ms var(--ease); }
-.cards.has-choice .pcard:not(.selected) { opacity: 0.72; }
-.cards.has-choice .pcard:not(.selected):hover { opacity: 1; }
-.pcard-body { padding: 16px 18px 18px; gap: 4px; }
+.pcard-body { padding: 18px 18px 18px; gap: 6px; }
