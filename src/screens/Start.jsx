@@ -8,7 +8,7 @@ export default function Start() {
   const { path } = useParams()
   if (!isPath(path)) return <Navigate to="/signup" replace />
   return (
-    <Page panelClass="narrow">
+    <Page narrow>
       <StartBody path={path} />
     </Page>
   )

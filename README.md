@@ -1,8 +1,10 @@
 # Backboard onboarding wireframe
 
-Interactive mockups of the sign-up and hackathon flow from `Backboard_Onboarding_Flow_v2_Sept2026`,
-built to the deck's sample pages (slides 5, 8–10, 13–17). Dark app theme, cyan accent. Every screen is a
-route; picking a card changes the button, completing a step lands where the real one will.
+Black-and-white interactive wireframe of the hackathon sign-up flow from
+`Backboard_Onboarding_Flow_v2_Sept2026` (slides 12–17), laid out as a real site: nav, hero with the
+walkthrough video, pick-a-path cards, how it works, footer. `/` opens on the hackathon page. Picking a card
+changes the button, completing a step lands where the real one will. The app sign-up screens (slides 5,
+8–10) are still reachable by URL.
 
 Dashed boxes stand in for real product screenshots and the embedded walkthrough videos. `[bracketed]` text
 is a value that has to come from docs or the organizer.
@@ -14,7 +16,7 @@ npm install
 npm run dev
 ```
 
-`/` lists every screen. The logo in the top-left always goes back to it.
+`/` is the hackathon page. The logo always goes back to it.
 
 ## Screens
 

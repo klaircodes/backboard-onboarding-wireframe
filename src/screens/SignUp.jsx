@@ -32,6 +32,7 @@ export default function SignUp() {
 
   return (
     <Page>
+      <section className="section"><div className="container">
       <div className="signup">
         <div>
           <h2>What are you here for?</h2>
@@ -43,6 +44,7 @@ export default function SignUp() {
         <div className="divider-v" />
         <AuthBlock path={path} onComplete={complete} />
       </div>
+      </div></section>
     </Page>
   )
 }

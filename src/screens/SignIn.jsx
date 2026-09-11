@@ -7,7 +7,7 @@ export default function SignIn() {
   const navigate = useNavigate()
   const go = () => navigate(getAccount() ? '/dashboard' : '/signup')
   return (
-    <Page panelClass="form">
+    <Page narrow>
       <div className="auth stack" style={{ maxWidth: 440, margin: '0 auto' }}>
         <h2>Sign in</h2>
         <Btn full onClick={go}>Continue with Google</Btn>

@@ -6,9 +6,7 @@ import VideoEmbed from '../components/VideoEmbed.jsx'
 import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
 import { track } from '../lib/track.js'
 
-const LABELS = { studio: 'Studio', rcli: 'R-CLI', api: 'Unified API' }
-
-// Slide 13. Video first, pick a path, then what each is.
+// Step 1. Hero with the walkthrough, pick a path, how it works, what each path gives you.
 export default function HackathonLanding() {
   const navigate = useNavigate()
   const [path, setPath] = useState(null)
@@ -17,29 +15,59 @@ export default function HackathonLanding() {
     track('path_selected', { path: next, source: 'click', hackathon: true })
   }
   return (
-    <Page right="Hackathon access">
-      <VideoEmbed id={HACKATHON_VIDEO} label="Hackathon walkthrough" h={200} play className="hero-video" />
-      <h2 style={{ marginBottom: 6 }}>Build with Backboard this weekend.</h2>
-      <p className="text-2" style={{ marginBottom: 20 }}>Pick how you want to build. Credits are issued on the next step.</p>
-      <HackathonChooser selected={path} onSelect={select} />
-      <div className="row" style={{ marginTop: 20 }}>
-        <Btn primary disabled={!path} onClick={() => navigate(`/hackathon/signup?path=${path}`)}>Continue</Btn>
-        {!path ? <span className="mono muted">Pick a path to continue</span> : null}
-      </div>
-      <div className="columns-3">
-        {PATH_ORDER.map((k) => (
-          <div key={k}>
-            <p className="label mono">{LABELS[k]}</p>
-            <p>{PATHS[k].column}</p>
-            <p style={{ marginTop: 10 }}><a href="#" className="small" style={{ color: '#2aa8d2', textDecoration: 'none' }} onClick={(e) => e.preventDefault()}>Watch the {LABELS[k]} walkthrough →</a></p>
+    <Page>
+      <section className="hero">
+        <div className="container">
+          <h1 className="enter">Build with Backboard this weekend.</h1>
+          <p className="lede enter d1">Memory, 17,000+ models, RAG and threads for your hackathon team. Free credits, no credit card.</p>
+          <VideoEmbed id={HACKATHON_VIDEO} label="Hackathon walkthrough, 90 sec" className="enter d2" />
+        </div>
+      </section>
+
+      <section className="section" id="pick">
+        <div className="container">
+          <div className="section-head enter">
+            <h2>Pick how you want to build.</h2>
+            <p>One choice. Credits are issued on the next step, and you land on a page built for the tool you picked.</p>
           </div>
-        ))}
-      </div>
-      <div className="footer-links links">
-        <a href="#" onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a>
-        <span>·</span>
-        <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
-      </div>
+          <HackathonChooser selected={path} onSelect={select} />
+          <div className="continue enter d5">
+            <Btn primary disabled={!path} onClick={() => navigate(`/hackathon/signup?path=${path}`)}>
+              {path ? `Continue with ${PATHS[path].title} →` : 'Pick a path to continue'}
+            </Btn>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head enter">
+            <h2>How it works.</h2>
+          </div>
+          <div className="how">
+            <div className="enter d1"><p className="n">01</p><h3>Pick a path</h3><p>Studio, R-CLI or the Unified API. You can change it later in Settings.</p></div>
+            <div className="enter d2"><p className="n">02</p><h3>Sign up with your promo code</h3><p>Name, email, school or company, teammates. The promo code from your organizer issues the credits instantly.</p></div>
+            <div className="enter d3"><p className="n">03</p><h3>Start building</h3><p>Download Studio, install R-CLI, or connect Claude Code, Cursor or VS Code. Then submit your project from the same page.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head enter">
+            <h2>What you get with each path.</h2>
+          </div>
+          <div className="columns-3">
+            {PATH_ORDER.map((k, i) => (
+              <div key={k} className={`enter d${i + 1}`}>
+                <h3>{PATHS[k].title}</h3>
+                <p>{PATHS[k].column}</p>
+                <a href="#" className="more" onClick={(e) => e.preventDefault()}>Watch the {PATHS[k].title} walkthrough →</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </Page>
   )
 }

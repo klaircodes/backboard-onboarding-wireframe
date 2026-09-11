@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Page, Btn, Field } from '../components/Wire.jsx'
+import { Page, Btn, Field, StepBar } from '../components/Wire.jsx'
 import PathChip from '../components/PathChip.jsx'
 import { PATHS } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { saveAccount, track } from '../lib/track.js'
 
-// Slide 14. The form you already have, plus the path chip. Promo code required.
+// Step 2. The form you already have, plus the path chip. Promo code required.
 export default function HackathonForm() {
   const navigate = useNavigate()
   const [path] = usePathParam()
@@ -23,22 +23,26 @@ export default function HackathonForm() {
   }
 
   return (
-    <Page panelClass="form">
+    <Page narrow>
+      <StepBar current={2} />
       <form className="stack" onSubmit={submit}>
-        <div className="between" style={{ marginBottom: 6 }}>
-          <h2 style={{ margin: 0 }}>Hackathon access</h2>
+        <div className="between enter d1" style={{ marginBottom: 8 }}>
+          <div>
+            <h1 style={{ marginBottom: 4 }}>Create your account</h1>
+            <p className="text-2">Credits are issued the moment you submit.</p>
+          </div>
           <PathChip path={path} />
         </div>
-        <div className="grid-2">
+        <div className="grid-2 enter d2">
           <Field placeholder="First name" required />
           <Field placeholder="Last name" required />
         </div>
-        <div className="grid-2">
+        <div className="grid-2 enter d3">
           <Field type="email" placeholder="Email" required />
           <Field placeholder="School or company" required />
         </div>
-        <div className="between" style={{ marginTop: 6 }}>
-          <span>Team members</span>
+        <div className="between enter d4" style={{ marginTop: 6 }}>
+          <span className="label">Team members <span className="muted" style={{ fontWeight: 400 }}>· optional</span></span>
           <Btn small onClick={() => setMembers([...members, ''])}>+ Add team member</Btn>
         </div>
         {members.length ? (
@@ -51,10 +55,14 @@ export default function HackathonForm() {
             ))}
           </div>
         ) : null}
-        <Field className="accent-border" placeholder="Promo code (required for credits)" value={promo} onChange={(e) => setPromo(e.target.value)} required />
-        <Btn primary full type="submit" disabled={!promo.trim()}>{PATHS[path].hackButton}</Btn>
-        <p className="mono muted" style={{ textAlign: 'center' }}>Credits issued instantly. No credit card.</p>
-        <p className="text-2" style={{ textAlign: 'center' }}><a href="#" style={{ textDecoration: 'none', color: 'inherit' }} onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a></p>
+        <div className="enter d5">
+          <Field className="emph" placeholder="Promo code · required for credits" value={promo} onChange={(e) => setPromo(e.target.value)} required />
+        </div>
+        <div className="enter d6 stack" style={{ gap: 10 }}>
+          <Btn primary full type="submit" disabled={!promo.trim()}>{PATHS[path].hackButton}</Btn>
+          <p className="muted small" style={{ textAlign: 'center' }}>Credits issued instantly. No credit card.</p>
+          <p className="text-2 small" style={{ textAlign: 'center' }}><a href="#" onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a></p>
+        </div>
       </form>
     </Page>
   )
