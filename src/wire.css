@@ -338,7 +338,7 @@ p { margin: 0; }
 .steps li.is-done .chk { background: var(--ink); border-color: var(--ink); color: var(--paper); animation: pop-in 260ms var(--ease); }
 @keyframes pop-in { 0% { transform: scale(0.8); } 60% { transform: scale(1.08); } 100% { transform: none; } }
 .step-n { display: none; }
-.steps li.is-done .step-title { color: var(--ink); }
+.steps li.is-done .step-title { color: var(--ink); text-decoration: line-through; text-decoration-thickness: 1.5px; }
 .steps li.is-done .step-body { opacity: 0.45; transition: opacity 220ms var(--ease); }
 .steps li.is-done .step-body:hover { opacity: 1; }
 .end-row { justify-content: space-between; margin-top: 4px; }
