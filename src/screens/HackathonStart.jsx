@@ -66,9 +66,9 @@ export default function HackathonStart() {
                     <p className="step-detail">{s.detail}</p>
                     {path === 'studio' && i === 0 ? (
                       <div className="two">
-                        <Btn primary onClick={() => cta('macos', 0)}>Download for macOS (Apple Silicon)</Btn>
+                        <Btn primary onClick={() => cta('macos', 0)}>Download for macOS</Btn>
                         <Btn onClick={() => cta('windows', 0)}>Download for Windows</Btn>
-                        <p className="help" style={{ gridColumn: '1 / -1' }}>Also available for macOS Intel and Linux.</p>
+                        <p className="help" style={{ gridColumn: '1 / -1' }}>Apple Silicon by default. Also available for macOS Intel and Linux.</p>
                       </div>
                     ) : null}
                     {s.harness ? (
