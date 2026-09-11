@@ -35,7 +35,7 @@ export function StudioShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={1} y={1} w={638} h={398} r={8} title="Backboard Studio" />
+      <Chrome x={1} y={1} w={638} h={398} r={18} title="Backboard Studio" />
       {/* sidebar */}
       <line x1="170" y1="37" x2="170" y2="400" stroke={G.line} strokeWidth="1.5" />
       <rect x="34" y="70" width="122" height="26" rx="6" fill={G.s3} />
@@ -75,7 +75,7 @@ export function TerminalShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={1} y={1} w={638} h={398} r={8} title="terminal" dark />
+      <Chrome x={1} y={1} w={638} h={398} r={18} title="terminal" dark />
       {lines.map(([t, c], i) => <text key={i} x="44" y={82 + i * 30} fontFamily={MONO} fontSize="13" fill={c}>{t}</text>)}
       <rect x="44" y="294" width="9" height="16" fill={G.ink} className="blink" />
     </Frame>
@@ -86,7 +86,7 @@ export function EditorShot() {
   return (
     <Frame vb="0 0 640 400">
       <rect width="640" height="400" fill={G.s2} />
-      <Chrome x={1} y={1} w={638} h={398} r={8} />
+      <Chrome x={1} y={1} w={638} h={398} r={18} />
       {/* tabs */}
       <rect x="1" y="37" width="638" height="30" fill={G.base} />
       <rect x="20" y="37" width="110" height="30" fill={G.s2} />
