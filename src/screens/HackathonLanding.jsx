@@ -1,94 +1,57 @@
 import { useNavigate } from 'react-router-dom'
-import { Nav, Footer } from '../components/Wire.jsx'
-import { SplitBody, Btn, OptionRow, Icons, PathIllo } from '../components/Wizard.jsx'
-import { FAQ, HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
+import { SiteNav, Btn, Placeholder, PathCard } from '../components/Hack.jsx'
+import { HACKATHON_VIDEO, PATHS, PATH_ORDER } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { track } from '../lib/track.js'
 
-// backboard.io/hackathon: the information page. The path pick sits above the fold and hands off to the app.
+const LABEL = { studio: 'Studio', rcli: 'R-CLI', api: 'Unified API' }
+
+// backboard.io/hackathon — deck slide 13: video first, pick a path, then what each is.
 export default function HackathonLanding() {
   const navigate = useNavigate()
   const [path, setPath] = usePathParam()
-
   const select = (next) => {
     setPath(next)
     track('path_selected', { path: next, source: 'click', hackathon: true })
   }
-  // Real build: window.location = `https://app.backboard.io/hackathon/team?path=${chosen}`
-  const handoff = (chosen) => navigate(`/hackathon/team?path=${chosen}`)
+  // Real build: window.location = `https://app.backboard.io/hackathon/signup?path=${path}`
+  const handoff = () => navigate(`/hackathon/signup?path=${path}`)
 
   return (
     <div className="page">
-      <Nav />
-      <main className="site">
-        <SplitBody
-          animKey="site"
-          title="Build with Backboard this weekend."
-          sub="Persistent memory, 17,000+ models, RAG and threads for your hackathon team. Pick how you want to build and sign up in a minute."
-          aside={<PathIllo path={path} />}
-          footer={
-            <>
-              <Btn primary full disabled={!path} onClick={() => handoff(path)}>{path ? `Sign up with ${PATHS[path].title}` : 'Sign up'}</Btn>
-              <span className="hint">Continues on app.backboard.io. Not sure? <button type="button" className="link" onClick={() => { select('api'); handoff('api') }}>Start with the API</button></span>
-            </>
-          }
-        >
-          <div role="radiogroup" aria-label="Path" className="wz-controls">
-            {PATH_ORDER.map((k) => (
-              <OptionRow key={k} icon={Icons[k]} title={PATHS[k].title} sub={`${PATHS[k].tagline} ${PATHS[k].setup} setup.`} selected={path === k} onSelect={() => select(k)} />
-            ))}
-          </div>
-        </SplitBody>
+      <SiteNav />
+      <main className="wrap">
+        <Placeholder video label={`Hackathon walkthrough · youtu.be/${HACKATHON_VIDEO}`} className="hero-video" />
 
-        <section className="section info" id="watch">
-          <div className="container info-grid">
-            <div>
-              <h2>What you get</h2>
-              <p className="text-2">One hackathon code covers your whole team. No card, nothing to cancel afterwards. Every path gives you the same Backboard underneath: memory that persists across sessions, 17,000+ models behind one key, retrieval over your own documents, and threads your agents can share.</p>
-            </div>
-            <div className="video"><div className="play" role="button" aria-label="Play" /><span className="small">Hackathon walkthrough, 90 sec</span></div>
-          </div>
+        <section className="intro">
+          <h1>Build with Backboard this weekend.</h1>
+          <p className="sub">Pick how you want to build. Credits are issued on the next step.</p>
         </section>
 
-        <section className="section info">
-          <div className="container">
-            <h2>Three ways in</h2>
-            <div className="ways">
-              {PATH_ORDER.map((k) => (
-                <div key={k} className="way">
-                  <span className="opt-icon">{Icons[k]}</span>
-                  <h3>{PATHS[k].title}</h3>
-                  <p className="text-2">{PATHS[k].bestIf}</p>
-                  <ul>{PATHS[k].youGet.map((g) => <li key={g}>{g}</li>)}</ul>
-                  <button type="button" className="link" onClick={() => { select(k); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Pick {PATHS[k].short}</button>
-                </div>
-              ))}
+        <div className="cards" role="radiogroup" aria-label="Path">
+          {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
+        </div>
+
+        <div className={`go ${path ? 'ready' : ''}`}>
+          <Btn primary disabled={!path} onClick={handoff}>{path ? `Continue with ${PATHS[path].title}` : 'Choose a path to continue'}</Btn>
+          <span className="hint">Sign-up continues on app.backboard.io.</span>
+        </div>
+
+        <section className="cols">
+          {PATH_ORDER.map((k) => (
+            <div key={k}>
+              <h4>{LABEL[k]}</h4>
+              <p>{PATHS[k].column}</p>
+              <a href="#" onClick={(e) => e.preventDefault()}>Watch the {LABEL[k]} walkthrough</a>
             </div>
-          </div>
+          ))}
         </section>
 
-        <section className="section info">
-          <div className="container info-grid">
-            <div>
-              <h2>How it works</h2>
-              <ol className="how-list">
-                <li><div><b>Pick a path here.</b><span>Studio, R-CLI or the API. You can switch later in the app.</span></div></li>
-                <li><div><b>Sign up on app.backboard.io.</b><span>Your name, school and teammates, then the hackathon code from your organizer.</span></div></li>
-                <li><div><b>Start building.</b><span>A short checklist gets you to a first result. Submit from the same page.</span></div></li>
-              </ol>
-            </div>
-            <div>
-              <h2>Questions teams ask</h2>
-              <div className="faq">
-                {FAQ.map((f) => (
-                  <details key={f.q}><summary>{f.q}</summary><p className="a">{f.a}</p></details>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <footer className="foot">
+          <a href="#" onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a>
+          <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
+        </footer>
       </main>
-      <Footer />
     </div>
   )
 }

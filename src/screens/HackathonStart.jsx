@@ -1,106 +1,78 @@
 import { useState } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
-import { Split, Btn } from '../components/Wizard.jsx'
-import { isPath, PATHS, PATH_ORDER } from '../data/paths.js'
+import { Navigate, useParams } from 'react-router-dom'
+import { AppBar, Btn, Placeholder, Copy } from '../components/Hack.jsx'
+import { isPath, PATHS } from '../data/paths.js'
 import { getAccount, track } from '../lib/track.js'
 
 const HARNESSES = ['Claude Code', 'Cursor', 'VS Code']
+const LINKS = ['Submit your project', 'Judging criteria', 'Mentor channel', 'Docs']
 
-function Cmd({ cmd }) {
-  const [done, setDone] = useState(false)
-  const copy = () => {
-    navigator.clipboard?.writeText(cmd).catch(() => {})
-    setDone(true)
-    setTimeout(() => setDone(false), 1400)
-  }
-  return (
-    <div className="cmd">
-      <span>{cmd}</span>
-      <button type="button" className={`copy-btn ${done ? 'done' : ''}`} onClick={copy}>{done ? 'Copied' : 'Copy'}</button>
-    </div>
-  )
-}
-
-// Step 4: you're in. A short checklist to the first result; video and submit info on the right.
+// app.backboard.io/hackathon/start/{path} — deck slides 15–17: credits banner, the win, the video, links.
 export default function HackathonStart() {
   const { path } = useParams()
-  const [done, setDone] = useState({})
   const [windows, setWindows] = useState(false)
   const [harness, setHarness] = useState(null)
   if (!isPath(path)) return <Navigate to="/hackathon" replace />
   const p = PATHS[path]
   const account = getAccount()
-  const team = account?.hackathon ? account.team : 1
-  const toggle = (i) => setDone({ ...done, [i]: !done[i] })
+  const team = account?.hackathon ? account.team : 3
   const cta = (detail) => track('start_cta_clicked', { path, hackathon: true, detail })
-  const doneCount = Object.values(done).filter(Boolean).length
 
   return (
-    <Split
-      step={4}
-      title="You're in."
-      sub={`Here's the fastest way to a first result with ${p.title}.`}
-      aside={
-        <div className="aside-stack">
-          <div className="video"><div className="play" role="button" aria-label="Play" /><span className="small">{p.title} walkthrough, 90 sec</span></div>
-          <div className="aside-card">
-            <h3>When you're ready to submit</h3>
-            <p>Submissions go through the hackathon portal. Judging criteria and the mentor channel are open all weekend.</p>
-            <div className="links">
-              <a href="#" onClick={(e) => e.preventDefault()}>Submit a project</a>
-              <a href="#" onClick={(e) => e.preventDefault()}>Judging criteria</a>
-              <a href="#" onClick={(e) => e.preventDefault()}>Mentor channel</a>
+    <div className="page">
+      <AppBar />
+      <main className="wrap mid">
+        <div className="card start">
+          <div className="credits"><b>You are in.</b> Hackathon credits are on your account. Team of {team}.</div>
+
+          {path === 'studio' ? (
+            <>
+              <h1>Get Backboard Studio</h1>
+              <div className="two">
+                <Btn primary onClick={() => cta('macos')}>Download for macOS (Apple Silicon)</Btn>
+                <Btn onClick={() => cta('windows')}>Download for Windows</Btn>
+              </div>
+              <p className="note">Also: macOS Intel · Linux. Studio opens already signed in.</p>
+              <p className="note">Next: open Studio, sign in, start your project.</p>
+            </>
+          ) : null}
+
+          {path === 'rcli' ? (
+            <>
+              <h1>Install Backboard R-CLI</h1>
+              <Copy cmd={windows ? '[PowerShell one-liner from docs]' : 'curl -fsSL https://app.backboard.io/api/cli | bash'} onCopy={cta} />
+              <div className="two">
+                <Copy cmd="backboard login" onCopy={cta} />
+                <Copy cmd="backboard --version" onCopy={cta} />
+              </div>
+              <p className="note">
+                <button type="button" className="link" onClick={() => setWindows(!windows)}>{windows ? 'Show macOS / Linux' : 'Windows PowerShell'}</button>
+                <span className="sep">·</span>backboard login prints a URL, a short code and a QR code. Approve in the browser and you are in.
+              </p>
+            </>
+          ) : null}
+
+          {path === 'api' ? (
+            <>
+              <h1>Connect your coding harness</h1>
+              <div className="three">
+                {HARNESSES.map((h) => <Btn key={h} primary={harness === h} onClick={() => { setHarness(h); cta(h) }}>{h}</Btn>)}
+              </div>
+              <p className="note">Key created and injected. Also: Codex, Windsurf, any MCP client.</p>
+              <p className="note mono">Or call it raw: pip install backboard-sdk · npm i backboard-sdk</p>
+            </>
+          ) : null}
+
+          <Placeholder video label={`${p.title} walkthrough, 90 sec · youtu.be/${p.video}`} className="start-video" />
+
+          <div className="hack">
+            <span className="label">Hackathon</span>
+            <div className="hack-links">
+              {LINKS.map((l) => <a key={l} href="#" onClick={(e) => e.preventDefault()}>{l}</a>)}
             </div>
           </div>
         </div>
-      }
-      footer={
-        <>
-          <Btn primary full onClick={() => cta('dashboard')}>Open the dashboard</Btn>
-          <span className="hint">{doneCount} of {p.steps.length} done. Prefer a different path? {PATH_ORDER.filter((k) => k !== path).map((k, i) => <span key={k}><Link to={`/hackathon/start/${k}`}>{PATHS[k].short}</Link>{i === 0 ? ' or ' : ''}</span>)}</span>
-        </>
-      }
-    >
-      <div className="summary">
-        <span>{team === 1 ? 'Just you' : `Team of ${team}`}</span>
-        <span>{p.title}</span>
-        <span>about {p.setup}</span>
-      </div>
-      <ul className="checklist">
-        {p.steps.map((s, i) => (
-          <li key={s.title} className={done[i] ? 'done' : ''}>
-            <span className="box" role="checkbox" aria-checked={!!done[i]} tabIndex={0} onClick={() => toggle(i)} onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && toggle(i)}>
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.8 9 10 3.4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </span>
-            <div>
-              <div className="t">{s.title}</div>
-              <p className="d">{s.detail}</p>
-              {path === 'studio' && i === 0 ? (
-                <div className="grid-2">
-                  <Btn primary onClick={() => { cta('download'); toggle(0) }}>Download for macOS</Btn>
-                  <Btn onClick={() => { cta('download-win'); toggle(0) }}>Download for Windows</Btn>
-                </div>
-              ) : null}
-              {s.harness ? (
-                <div className="choice-row">
-                  {HARNESSES.map((h) => (
-                    <Btn key={h} primary={harness === h} onClick={() => { setHarness(h); cta(h); toggle(0) }}>{h}</Btn>
-                  ))}
-                </div>
-              ) : null}
-              {s.cmd && path === 'rcli' && i === 0 ? (
-                <>
-                  <div className="mini-tabs">
-                    <button type="button" className={!windows ? 'on' : ''} onClick={() => setWindows(false)}>macOS / Linux</button>
-                    <button type="button" className={windows ? 'on' : ''} onClick={() => setWindows(true)}>Windows</button>
-                  </div>
-                  <Cmd cmd={windows ? s.winCmd : s.cmd} />
-                </>
-              ) : s.cmd ? <Cmd cmd={s.cmd} /> : null}
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Split>
+      </main>
+    </div>
   )
 }
