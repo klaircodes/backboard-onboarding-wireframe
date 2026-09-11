@@ -1,34 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Screen } from '../components/Wire.jsx'
-import PathChooser from '../components/PathChooser.jsx'
+import { Page } from '../components/Wire.jsx'
+import { SignupChooser } from '../components/PathChooser.jsx'
 import AuthBlock from '../components/AuthBlock.jsx'
 import { usePathParam } from '../lib/usePath.js'
 import { saveAccount, track } from '../lib/track.js'
 
-const NOTES = [
-  'One screen: pick a path, then authenticate. No other questions.',
-  'Arrived with ?path= → that card is pre-selected and the button label follows the path (source=url).',
-  'No path in URL → nothing selected, button reads "Sign up" and is disabled until a card is picked.',
-  '"Not sure?" selects Unified API (source=default).',
-  'path_selected is written at account creation. It drives the start-page redirect, sidebar default, customer.io E1 branch and the activation metric.',
-  'Card images are 1:1 crops of the real product. Optional 3s silent loop on hover.',
-]
-
+// Slide 5. ?path= pre-selects a card; no path → nothing selected and the button is disabled.
 export default function SignUp() {
   const navigate = useNavigate()
   const [path, setPath] = usePathParam()
-  const [source, setSource] = useState(path ? 'url' : null)
+  const tracked = useRef(false)
 
   useEffect(() => {
-    if (path && source === 'url') track('path_selected', { path, source: 'url' })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    if (path && !tracked.current) {
+      tracked.current = true
+      track('path_selected', { path, source: 'url' })
+    }
+  }, [path])
 
-  const select = (next, how = 'click') => {
+  const select = (next, source = 'click') => {
     setPath(next)
-    setSource(how)
-    track('path_selected', { path: next, source: how })
+    track('path_selected', { path: next, source })
   }
 
   const complete = (provider) => {
@@ -38,15 +31,18 @@ export default function SignUp() {
   }
 
   return (
-    <Screen route={path ? `/signup?path=${path}` : '/signup'} title="Sign-up page" notes={NOTES}>
-      <div className="split">
+    <Page>
+      <div className="signup">
         <div>
-          <h1>What are you here for?</h1>
-          <p className="lede">Pick one. You can change it later in Settings.</p>
-          <PathChooser selected={path} onSelect={select} notSure />
+          <h2>What are you here for?</h2>
+          <SignupChooser selected={path} onSelect={select} />
+          <p className="text-2" style={{ marginTop: 22 }}>
+            Not sure? <button className="link" onClick={() => select('api', 'default')}>Start with the Unified API.</button>
+          </p>
         </div>
+        <div className="divider-v" />
         <AuthBlock path={path} onComplete={complete} />
       </div>
-    </Screen>
+    </Page>
   )
 }

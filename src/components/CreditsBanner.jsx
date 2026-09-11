@@ -1,9 +1,4 @@
-// Hackathon step 3 header (slides 15–17): credits confirmed, team size shown.
-export default function CreditsBanner({ team = 1 }) {
-  return (
-    <div className="credits">
-      <strong>You are in. Hackathon credits are on your account.</strong>
-      <span>Team of {team} · every member is covered</span>
-    </div>
-  )
+// Hackathon step 3 banner (slides 15–17).
+export default function CreditsBanner({ team = 3 }) {
+  return <div className="credits">You are in. Hackathon credits are on your account. Team of {team}.</div>
 }

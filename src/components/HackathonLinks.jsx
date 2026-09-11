@@ -3,13 +3,14 @@ const LINKS = ['Submit your project', 'Judging criteria', 'Mentor channel', 'Doc
 
 export default function HackathonLinks() {
   return (
-    <div className="stack">
-      <h3>Hackathon</h3>
-      <div className="hack-links">
-        {LINKS.map((l) => (
-          <a key={l} href="#" onClick={(e) => e.preventDefault()}>
-            {l} → <span className="muted">[URL]</span>
-          </a>
+    <div style={{ marginTop: 24 }}>
+      <p className="mono muted" style={{ marginBottom: 10 }}>Hackathon</p>
+      <div className="links" style={{ fontSize: 16 }}>
+        {LINKS.map((l, i) => (
+          <span key={l} className="row" style={{ gap: 10 }}>
+            <a href="#" className="accent" onClick={(e) => e.preventDefault()}>{l}</a>
+            {i < LINKS.length - 1 ? <span className="muted">·</span> : null}
+          </span>
         ))}
       </div>
     </div>

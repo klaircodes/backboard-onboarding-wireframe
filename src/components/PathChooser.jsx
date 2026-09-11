@@ -1,23 +1,22 @@
 import { PATH_ORDER } from '../data/paths.js'
-import PathCard from './PathCard.jsx'
+import { PathRow, PathTile } from './PathCard.jsx'
 
-// Three cards. `notSure` renders the "Not sure? Start with the Unified API" default (sign-up only).
-export default function PathChooser({ selected, onSelect, notSure = false, variant = 'signup' }) {
+export function SignupChooser({ selected, onSelect }) {
   return (
-    <div className="stack">
-      <div className="cards">
-        {PATH_ORDER.map((key) => (
-          <PathCard key={key} path={key} selected={selected === key} onSelect={onSelect} variant={variant} />
-        ))}
-      </div>
-      {notSure ? (
-        <p className="small muted">
-          Not sure?{' '}
-          <button className="link" onClick={() => onSelect('api', 'default')}>
-            Start with the Unified API
-          </button>
-        </p>
-      ) : null}
+    <div className="card-list">
+      {PATH_ORDER.map((k) => (
+        <PathRow key={k} path={k} selected={selected === k} onSelect={onSelect} />
+      ))}
+    </div>
+  )
+}
+
+export function HackathonChooser({ selected, onSelect }) {
+  return (
+    <div className="cards-3">
+      {PATH_ORDER.map((k) => (
+        <PathTile key={k} path={k} selected={selected === k} onSelect={onSelect} />
+      ))}
     </div>
   )
 }

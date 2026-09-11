@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { PATHS } from '../data/paths.js'
+import { Btn } from './Wire.jsx'
 
-// Path carried from hackathon step 1, shown on the form with a change link (slide 14).
+// Path carried from step 1, shown on the form with "change" (slide 14).
 export default function PathChip({ path }) {
+  const navigate = useNavigate()
   return (
-    <span className="chip">
-      {PATHS[path].title} · <Link to="/hackathon">change</Link>
-    </span>
+    <Btn chip onClick={() => navigate('/hackathon')}>
+      {PATHS[path].title} · change
+    </Btn>
   )
 }

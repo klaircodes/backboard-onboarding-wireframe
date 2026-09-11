@@ -1,27 +1,19 @@
-import { Btn, Box } from './Wire.jsx'
+import { useState } from 'react'
+import { Btn } from './Wire.jsx'
 
-// The three one-click MCP installs that already exist under Integrations (slide 10). Key is created on
-// page load and injected; the old snippet modal is collapsed under "Or call it raw".
+// Three one-click MCP installs (slide 10). Claude Code is the default primary; clicking one makes it primary.
 const HARNESSES = ['Claude Code', 'Cursor', 'VS Code']
 
 export default function HarnessButtons({ onConnect }) {
+  const [active, setActive] = useState('Claude Code')
   return (
-    <div className="stack">
-      <div className="row">
+    <div className="stack" style={{ gap: 12 }}>
+      <div className="harness">
         {HARNESSES.map((h) => (
-          <Btn primary key={h} onClick={() => onConnect(h)}>
-            <Box label="icon" h={18} w={18} style={{ padding: 0, borderColor: '#fff', color: '#fff' }} /> {h}
-          </Btn>
+          <Btn key={h} primary={active === h} onClick={() => { setActive(h); onConnect(h) }}>{h}</Btn>
         ))}
       </div>
-      <p className="small muted">Key created and injected · Also: Codex, Windsurf, any MCP client</p>
-      <details>
-        <summary className="small">Or call it raw</summary>
-        <div className="cmd" style={{ marginTop: 8 }}>
-          <div className="head"><span>Python / JavaScript</span></div>
-          <pre>pip install backboard-sdk   ·   npm i backboard-sdk{'\n'}BACKBOARD_API_KEY=bb_live_•••• (created for you, already in the snippet)</pre>
-        </div>
-      </details>
+      <p className="mono muted">Also: Codex, Windsurf, any MCP client</p>
     </div>
   )
 }

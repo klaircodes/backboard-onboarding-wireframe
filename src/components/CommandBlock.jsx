@@ -1,42 +1,47 @@
 import { useState } from 'react'
-import { Btn } from './Wire.jsx'
 
-// Three commands with copy buttons and the expected output under each (slide 9).
-// Windows tab swaps in the PowerShell one-liner. [PLACEHOLDER] marks values that must come from docs.
-const UNIX = [
-  { n: 1, label: 'Install (macOS / Linux)', cmd: 'curl -fsSL https://app.backboard.io/api/cli | bash', out: '[expected terminal output — real, from a fresh install]' },
-  { n: 2, label: 'Sign in from the terminal', cmd: 'backboard login', out: '[prints a URL, a short code and a QR code; approval lands on this account]' },
-  { n: 3, label: 'Verify', cmd: 'backboard --version', out: '[expected version output]' },
-]
-const WIN = [
-  { n: 1, label: 'Install (Windows PowerShell)', cmd: '[PowerShell one-liner from docs]', out: '[expected output]' },
-  { n: 2, label: 'Sign in from the terminal', cmd: 'backboard login', out: '[prints a URL, a short code and a QR code]' },
-  { n: 3, label: 'Verify', cmd: 'backboard --version', out: '[expected version output]' },
-]
+// Three commands, copy on each, Windows tab swaps the install line (slide 9). Two layouts: stacked (app
+// start page) or compact (hackathon step 3, slide 16).
+const UNIX_INSTALL = 'curl -fsSL https://app.backboard.io/api/cli | bash'
+const WIN_INSTALL = '[PowerShell one-liner from docs]'
 
-export default function CommandBlock({ onCopy }) {
-  const [tab, setTab] = useState('unix')
-  const list = tab === 'unix' ? UNIX : WIN
-  const copy = (cmd) => {
+function Cmd({ cmd, onCopy }) {
+  const [done, setDone] = useState(false)
+  const copy = () => {
     navigator.clipboard?.writeText(cmd).catch(() => {})
     onCopy?.(cmd)
+    setDone(true)
+    setTimeout(() => setDone(false), 1200)
+  }
+  return (
+    <div className="cmd">
+      <span>{cmd}</span>
+      <button type="button" className="copy-btn" onClick={copy}>{done ? 'Copied' : 'Copy'}</button>
+    </div>
+  )
+}
+
+export default function CommandBlock({ onCopy, compact = false, windows = false }) {
+  const install = windows ? WIN_INSTALL : UNIX_INSTALL
+  if (compact) {
+    return (
+      <div className="stack" style={{ gap: 10 }}>
+        <Cmd cmd={install} onCopy={onCopy} />
+        <div className="grid-2">
+          <Cmd cmd="backboard login" onCopy={onCopy} />
+          <Cmd cmd="backboard --version" onCopy={onCopy} />
+        </div>
+      </div>
+    )
   }
   return (
     <div>
-      <div className="tabs">
-        <button className={tab === 'unix' ? 'on' : ''} onClick={() => setTab('unix')}>macOS / Linux</button>
-        <button className={tab === 'win' ? 'on' : ''} onClick={() => setTab('win')}>Windows PowerShell</button>
-      </div>
-      {list.map((c) => (
-        <div className="cmd" key={c.n}>
-          <div className="head">
-            <span>{c.n}. {c.label}</span>
-            <Btn small ghost onClick={() => copy(c.cmd)}>Copy</Btn>
-          </div>
-          <pre>{c.cmd}</pre>
-          <pre className="out">{c.out}</pre>
-        </div>
-      ))}
+      <p className="step-label mono">1. Install ({windows ? 'Windows PowerShell' : 'macOS / Linux'})</p>
+      <Cmd cmd={install} onCopy={onCopy} />
+      <p className="step-label mono">2. Sign in from the terminal</p>
+      <Cmd cmd="backboard login" onCopy={onCopy} />
+      <p className="step-label mono">3. Verify</p>
+      <Cmd cmd="backboard --version" onCopy={onCopy} />
     </div>
   )
 }

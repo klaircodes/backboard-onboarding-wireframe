@@ -1,22 +1,39 @@
 import { PATHS } from '../data/paths.js'
-import { Box } from './Wire.jsx'
+import { Thumb } from './Wire.jsx'
 
-// One path card. `variant="hackathon"` uses the short one-liner and a Choose / Selected pill (slide 13).
-export default function PathCard({ path, selected, onSelect, variant = 'signup' }) {
+// Sign-up card (slide 5): horizontal row, thumbnail + copy, cyan border and dot when selected.
+export function PathRow({ path, selected, onSelect }) {
   const p = PATHS[path]
-  const hack = variant === 'hackathon'
   return (
-    <button
-      type="button"
-      className={`path-card ${selected ? 'selected' : ''}`}
-      onClick={() => onSelect(path)}
-      aria-pressed={selected}
-    >
-      <Box className="shot" label={`Real product screenshot · 1:1 crop · ${p.title}`} h={120} />
-      <h3>{p.title}</h3>
-      <p>{hack ? p.shortLine : p.line}</p>
-      {hack ? null : <p className="best">Best for: {p.bestFor}</p>}
-      {hack ? <span className="state">{selected ? 'Selected' : 'Choose'}</span> : null}
+    <button type="button" className={`path-row ${selected ? 'selected' : ''}`} onClick={() => onSelect(path)} aria-pressed={selected}>
+      <Thumb size={84} />
+      <div className="copy">
+        <h3>{p.title}</h3>
+        <p>
+          {p.line} Best for: {p.bestForInline}
+        </p>
+      </div>
+      <span className="dot" aria-hidden="true" />
     </button>
+  )
+}
+
+// Hackathon card (slide 13): vertical tile, short one-liner, Choose / Selected button.
+export function PathTile({ path, selected, onSelect }) {
+  const p = PATHS[path]
+  return (
+    <div className={`path-tile ${selected ? 'selected' : ''}`} onClick={() => onSelect(path)} role="button" tabIndex={0} aria-pressed={selected}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect(path)}>
+      <div className="top">
+        <Thumb size={56} />
+        <div>
+          <h3>{p.title}</h3>
+          <p>{p.shortLine}</p>
+        </div>
+      </div>
+      <button type="button" className={`btn choose ${selected ? 'primary' : ''}`} tabIndex={-1}>
+        {selected ? 'Selected' : 'Choose'}
+      </button>
+    </div>
   )
 }

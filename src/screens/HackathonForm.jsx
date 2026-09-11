@@ -1,22 +1,16 @@
 import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Screen, Btn, Field } from '../components/Wire.jsx'
+import { Page, Btn, Field } from '../components/Wire.jsx'
 import PathChip from '../components/PathChip.jsx'
 import { PATHS } from '../data/paths.js'
 import { usePathParam } from '../lib/usePath.js'
 import { saveAccount, track } from '../lib/track.js'
 
-const NOTES = [
-  'The form you already have, plus the path chip. Keep: first/last name, email, school or company, team members, promo code, instant credits, submit link.',
-  'Path chip comes from step 1 and can be changed. Promo code stays required: it is how credits are issued.',
-  'Button label follows the path. Submit redirects to /hackathon/start/{path}.',
-  'Every team member is emailed hackathon E1 for the chosen path.',
-]
-
+// Slide 14. The form you already have, plus the path chip. Promo code required.
 export default function HackathonForm() {
   const navigate = useNavigate()
   const [path] = usePathParam()
-  const [members, setMembers] = useState([''])
+  const [members, setMembers] = useState([])
   const [promo, setPromo] = useState('')
   if (!path) return <Navigate to="/hackathon" replace />
 
@@ -29,36 +23,39 @@ export default function HackathonForm() {
   }
 
   return (
-    <Screen route={`/hackathon/signup?path=${path}`} title="Hackathon, step 2" notes={NOTES}>
-      <form className="stack" style={{ maxWidth: 520, gap: 16 }} onSubmit={submit}>
-        <div>
-          <p className="small muted">Hackathon access</p>
-          <h1>Create your account</h1>
+    <Page panelClass="form">
+      <form className="stack" onSubmit={submit}>
+        <div className="between" style={{ marginBottom: 6 }}>
+          <h2 style={{ margin: 0 }}>Hackathon access</h2>
           <PathChip path={path} />
         </div>
-        <div className="row" style={{ alignItems: 'stretch' }}>
-          <div style={{ flex: 1 }}><Field label="First name" required /></div>
-          <div style={{ flex: 1 }}><Field label="Last name" required /></div>
+        <div className="grid-2">
+          <Field placeholder="First name" required />
+          <Field placeholder="Last name" required />
         </div>
-        <Field label="Email" type="email" required />
-        <Field label="School or company" required />
-        <div className="field">
-          <label>Team members <span className="req">(emails, optional)</span></label>
+        <div className="grid-2">
+          <Field type="email" placeholder="Email" required />
+          <Field placeholder="School or company" required />
+        </div>
+        <div className="between" style={{ marginTop: 6 }}>
+          <span>Team members</span>
+          <Btn small onClick={() => setMembers([...members, ''])}>+ Add team member</Btn>
+        </div>
+        {members.length ? (
           <div className="team">
             {members.map((m, i) => (
               <div className="member" key={i}>
-                <input value={m} placeholder="teammate@school.edu" onChange={(e) => setMembers(members.map((x, j) => (j === i ? e.target.value : x)))} />
-                {members.length > 1 ? <Btn small ghost type="button" onClick={() => setMembers(members.filter((_, j) => j !== i))}>Remove</Btn> : null}
+                <Field type="email" placeholder="Teammate email" value={m} onChange={(e) => setMembers(members.map((x, j) => (j === i ? e.target.value : x)))} />
+                <Btn small onClick={() => setMembers(members.filter((_, j) => j !== i))}>Remove</Btn>
               </div>
             ))}
-            <button type="button" className="link small" onClick={() => setMembers([...members, ''])} style={{ alignSelf: 'flex-start' }}>+ Add team member</button>
           </div>
-        </div>
-        <Field label="Promo code" required value={promo} onChange={(e) => setPromo(e.target.value)} placeholder="From your hackathon organizer" />
+        ) : null}
+        <Field className="accent-border" placeholder="Promo code (required for credits)" value={promo} onChange={(e) => setPromo(e.target.value)} required />
         <Btn primary full type="submit" disabled={!promo.trim()}>{PATHS[path].hackButton}</Btn>
-        <p className="small muted">Credits issued instantly. No credit card.</p>
-        <p className="small"><a href="#" onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a></p>
+        <p className="mono muted" style={{ textAlign: 'center' }}>Credits issued instantly. No credit card.</p>
+        <p className="text-2" style={{ textAlign: 'center' }}><a href="#" style={{ textDecoration: 'none', color: 'inherit' }} onClick={(e) => e.preventDefault()}>Looking to submit? Click here</a></p>
       </form>
-    </Screen>
+    </Page>
   )
 }

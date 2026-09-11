@@ -1,13 +1,9 @@
-import { Box } from './Wire.jsx'
-
-// Placeholder for the embedded walkthrough (slide 18): youtube-nocookie, autoplay muted, captions on,
-// never navigates away. Real build: <iframe src="https://www.youtube-nocookie.com/embed/{id}?autoplay=1&mute=1&cc_load_policy=1">
-export default function VideoEmbed({ id, label = 'Walkthrough, 90 sec', h = 260 }) {
+// Embedded walkthrough placeholder (slide 18). Real build: youtube-nocookie iframe, autoplay muted, captions on.
+export default function VideoEmbed({ id, label = 'Embedded walkthrough, 90 sec', h = 170, play = false, className = '' }) {
   return (
-    <Box
-      h={h}
-      label={`${label} · youtu.be/${id} · embedded, autoplay muted, captions on`}
-      style={{ width: '100%' }}
-    />
+    <div className={`video ${className}`} style={{ height: h }}>
+      {play ? <div className="play" aria-hidden="true" /> : null}
+      <span className="mono">{label} · youtu.be/{id}</span>
+    </div>
   )
 }
