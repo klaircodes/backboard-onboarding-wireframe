@@ -35,7 +35,7 @@ export default function HackathonLanding() {
             <h2>Pick how you want to build.</h2>
             <p>Credits are issued on the next step. You can switch later.</p>
           </div>
-          <div className="cards" role="radiogroup" aria-label="Path">
+          <div className="cards" role="radiogroup" aria-label="Path" data-pick={path || undefined}>
             {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
           </div>
           <p className="go hint">Picking one takes you to sign-up on app.backboard.io. Not sure? <button type="button" className="link" onClick={() => select('api')}>Start with the API</button></p>
@@ -56,8 +56,6 @@ export default function HackathonLanding() {
           <span className="foot-brand">Backboard</span>
           <nav>
             <a href="#" onClick={(e) => e.preventDefault()}>Looking to submit?</a>
-            <a href="#" onClick={(e) => e.preventDefault()}>Judging criteria</a>
-            <a href="#" onClick={(e) => e.preventDefault()}>Mentor channel</a>
             <a href="#" onClick={(e) => e.preventDefault()}>Docs</a>
           </nav>
         </div>
