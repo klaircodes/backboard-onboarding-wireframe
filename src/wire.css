@@ -340,3 +340,14 @@ p { margin: 0; }
 .end-row { justify-content: space-between; margin-top: 4px; }
 .end-row > div { display: flex; flex-direction: column; gap: 2px; }
 .end-row b { font-weight: 600; }
+
+/* Breadcrumb progress (replaces the numbered stepper) ----------------------- */
+.stepper { display: none; }
+.crumbs { display: flex; align-items: center; gap: 12px; white-space: nowrap; }
+.crumb-wrap { display: inline-flex; align-items: center; gap: 12px; }
+.crumb { font-size: 14px; color: var(--light); transition: color 200ms var(--ease); }
+.crumb.done { color: var(--ink-2); }
+.crumb.on { color: var(--ink); font-weight: 600; }
+.crumb-sep { color: var(--light); font-size: 15px; }
+.bar-progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--ink); transform-origin: left; transition: transform 600ms var(--ease); }
+@media (max-width: 640px) { .crumb:not(.on) { display: none; } .crumb-sep { display: none; } }

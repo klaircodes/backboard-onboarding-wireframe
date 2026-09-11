@@ -5,23 +5,24 @@ import { SHOTS, HeroStill } from './Illos.jsx'
 
 const STEPS = ['Pick a path', 'Sign up', 'Start building']
 
-// Progress across both domains: done steps get a check, the current one is bold, the rest are grey.
+// Progress across both domains: a plain breadcrumb (done · current · next) and a line under the bar that fills.
 export function Stepper({ step }) {
   return (
-    <ol className="stepper" aria-label={`Step ${step} of ${STEPS.length}`}>
-      {STEPS.map((label, i) => {
-        const n = i + 1
-        const state = n < step ? 'done' : n === step ? 'on' : ''
-        return (
-          <li key={label} className={state}>
-            <span className="stepper-dot" aria-hidden="true">
-              {n < step ? <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M2.5 7.5 5.5 10.5 11.5 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" /></svg> : n}
+    <>
+      <nav className="crumbs" aria-label={`Step ${step} of ${STEPS.length}`}>
+        {STEPS.map((label, i) => {
+          const n = i + 1
+          const state = n < step ? 'done' : n === step ? 'on' : ''
+          return (
+            <span key={label} className="crumb-wrap">
+              <span className={`crumb ${state}`} aria-current={n === step ? 'step' : undefined}>{label}</span>
+              {i < STEPS.length - 1 ? <span className="crumb-sep" aria-hidden="true">›</span> : null}
             </span>
-            <span className="stepper-label">{label}</span>
-          </li>
-        )
-      })}
-    </ol>
+          )
+        })}
+      </nav>
+      <span className="bar-progress" style={{ transform: `scaleX(${step / STEPS.length})` }} aria-hidden="true" />
+    </>
   )
 }
 
