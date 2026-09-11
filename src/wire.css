@@ -122,8 +122,6 @@ p { margin: 0; }
 .col h3 { margin-bottom: 8px; }
 .col .lead { color: var(--text); font-size: 14.5px; margin-bottom: 8px; }
 .col p { color: var(--text-3); font-size: 14px; line-height: 1.55; }
-.col a { display: inline-block; margin-top: 12px; font-size: 14px; color: var(--text-2); text-underline-offset: 3px; transition: color 160ms var(--ease); }
-.col a:hover { color: var(--text); }
 .foot { border-top: 1px solid var(--line); padding: 24px 0; }
 .foot-in { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
 .foot-brand { font-family: var(--display); font-weight: 500; letter-spacing: -0.01em; }

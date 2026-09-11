@@ -47,7 +47,6 @@ export default function HackathonLanding() {
               <h3>{PATHS[k].title}</h3>
               <p className="lead">{PATHS[k].bestIf}</p>
               <p>{PATHS[k].column}</p>
-              <a href="#" onClick={(e) => e.preventDefault()}>Watch the {PATHS[k].short} walkthrough</a>
             </div>
           ))}
         </section>
