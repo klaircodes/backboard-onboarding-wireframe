@@ -25,7 +25,7 @@ export default function HackathonLanding() {
       <main className="wrap">
         <section className="hero">
           <h1>Backboard for your hackathon.</h1>
-          <p className="sub">Persistent memory, 17,000+ models, retrieval and threads, unlocked with your hackathon promo code. Pick how you want to build and you're set up in a minute.</p>
+          <p className="sub">Persistent memory, 17,000+ models, retrieval and threads, unlocked with promo code HTN2026. Pick how you want to build and you're set up in a minute.</p>
           <Logos />
           <Video youtube={HACKATHON_VIDEO} caption="Hackathon walkthrough" className="hero-video" />
         </section>
@@ -33,7 +33,7 @@ export default function HackathonLanding() {
         <section className="pick" id="pick">
           <div className="sec-head">
             <h2>Pick how you want to build.</h2>
-            <p>Have your hackathon promo code ready for the next step. You can switch later.</p>
+            <p>Enter promo code HTN2026 on the next step. You can switch paths later.</p>
           </div>
           <div className="cards" role="radiogroup" aria-label="Path">
             {PATH_ORDER.map((k) => <PathCard key={k} path={k} selected={path === k} onSelect={select} />)}
