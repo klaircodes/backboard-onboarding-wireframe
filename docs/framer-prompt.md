@@ -21,7 +21,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 2. **HeroSection**, 64px top padding.
    h1: "Backboard for your hackathon." (max 680px; it may break onto two lines)
-   Lede, text-body-lg, Text/Secondary, max 580px: "Persistent memory, 17,000+ models, retrieval and threads, free for your team this weekend. Pick how you want to build and you're set up in a minute."
+   Lede, text-body-lg, Text/Secondary, max 580px: "Persistent memory, 17,000+ models, retrieval and threads, unlocked with your hackathon promo code. Pick how you want to build and you're set up in a minute."
 
 3. **LogoStrip**, 30px below the lede. One row of the white model logos already in this project's homepage LogoTicker, in this order: ChatGPT, Claude, Grok, DeepSeek, Cohere, OpenRouter, then ElevenLabs. Marks about 16px tall (adjust each so they read at one weight), 28px gap, 55% opacity (80% on hover), left-aligned, wrapping to a second line on phone. No caption under it.
 
@@ -29,7 +29,7 @@ Reference: https://klaircodes.github.io/backboard-onboarding-wireframe/hackathon
 
 5. **PickSection**, 64px top padding.
    h2: "Pick how you want to build."
-   Line under it, text-body, Text/Muted: "Credits are issued on the next step. You can switch later."
+   Line under it, text-body, Text/Muted: "Have your hackathon promo code ready for the next step. You can switch later."
    **PathCards**: three cards in one row on desktop and tablet, stacked on phone, 16px gap. Each card is a link (the whole card, not just the button). Card: Surface/Primary, radius 12, padding 10, no border, no shadow. Inside, top to bottom: a 16:10 product image with its own 8px rounded corners and nothing behind it; then 16px padding with title in text-h3, a one-line description in Text/Muted, and a full-width Secondary button.
    - Backboard Studio — "The desktop IDE with everything built in." — button "Sign up and download Studio" — links to https://app.backboard.io/hackathon/signup?path=studio — image: Studio window.
    - Backboard R-CLI — "An open-source coding harness for the terminal." — button "Sign up and install R-CLI" — links to https://app.backboard.io/hackathon/signup?path=rcli — image: terminal.
