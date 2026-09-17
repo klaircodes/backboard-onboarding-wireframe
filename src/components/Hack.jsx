@@ -124,7 +124,7 @@ export function PathCard({ path, selected, onSelect }) {
 // Model-provider strip above the hero video. PNGs are the white logos from backboard.io's homepage ticker;
 // ElevenLabs is drawn to match. Heights are tuned per mark so they read at one visual weight.
 const LOGOS = [
-  ['chatgpt', 'ChatGPT', 20], ['claude', 'Claude', 17], ['grok', 'Grok', 20], ['deepseek', 'DeepSeek', 17], ['cohere', 'Cohere', 15], ['openrouter', 'OpenRouter', 15],
+  ['chatgpt', 'ChatGPT', 20], ['claude', 'Claude', 17], ['grok', 'Grok', 20], ['deepseek', 'DeepSeek', 17], ['cohere', 'Cohere', 15], ['openrouter', 'OpenRouter', 15], ['bytedance', 'ByteDance', 16],
 ]
 export function Logos() {
   const base = import.meta.env.BASE_URL
