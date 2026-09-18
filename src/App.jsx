@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import SignUp from './screens/SignUp.jsx'
-import SignIn from './screens/SignIn.jsx'
-import Start from './screens/Start.jsx'
-import Dashboard from './screens/Dashboard.jsx'
+import AppSignUp from './screens/AppSignUp.jsx'
+import AppSignIn from './screens/AppSignIn.jsx'
+import AppStart from './screens/AppStart.jsx'
+import AppDashboard from './screens/AppDashboard.jsx'
 import HackathonLanding from './screens/HackathonLanding.jsx'
 import HackathonSignup from './screens/HackathonSignup.jsx'
 import HackathonStart from './screens/HackathonStart.jsx'
@@ -22,10 +22,10 @@ export default function App() {
       <Route path="/hackathon/team" element={<ToSignup />} />
       <Route path="/hackathon/code" element={<ToSignup />} />
       <Route path="/hackathon/start/:path" element={<HackathonStart />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/start/:path" element={<Start />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/signup" element={<AppSignUp />} />
+      <Route path="/signin" element={<AppSignIn />} />
+      <Route path="/start/:path" element={<AppStart />} />
+      <Route path="/dashboard" element={<AppDashboard />} />
       <Route path="*" element={<Navigate to="/hackathon" replace />} />
     </Routes>
   )
